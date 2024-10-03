@@ -1,0 +1,20 @@
+{
+  "subDistrict": [
+    {
+      "id": 1,
+      "uuid": "b713300b-7570-11ef-88d9-7c10c9ad62dc",
+      "name": "Bagor",
+      "village": [
+        {
+          "id": "285",
+          "uuid": "f0b7b0b7-7572-11ef-88d9-7c10c9ad62dc",
+          "name": "Bagor"
+        },
+        {
+
+        }
+      ]
+    }
+
+  ]
+}
