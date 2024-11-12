@@ -23,9 +23,9 @@ class PickRoleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final role = Get.arguments['roleID'] ?? 'ID Not Found';
     final roleName = Get.arguments['roleName'] ?? 'Not Found';
-    final namaPengguna = Get.arguments['nama_pengguna'] ?? '';
-    final noWhatsapp = Get.arguments['no_whatsapp'] ?? '';
-    final password = Get.arguments['password'] ?? '';
+    final namaPengguna = Get.arguments['nama_pengguna'] ?? 'Not Found';
+    final noWhatsapp = Get.arguments['no_whatsapp'] ?? 'Not Found';
+    final password = Get.arguments['password'] ?? 'Not Found';
     print('Role: $role');
 
     return Scaffold(
