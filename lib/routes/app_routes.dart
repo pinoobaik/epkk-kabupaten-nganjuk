@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import '../features/auth/presentation/pages/auth_screen.dart';
 import '../features/auth/presentation/pages/pick_role_screen.dart';
 import '../features/auth/presentation/pages/register_screen.dart';
+import '../features/auth/presentation/pages/verification_screen.dart';
 import '../features/splash_screen/splash_screen.dart';
 import '../features/welcome/welcome_screen.dart';
 import '../get/binding/auth_binding.dart';

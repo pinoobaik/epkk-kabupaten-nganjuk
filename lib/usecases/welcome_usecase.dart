@@ -9,7 +9,7 @@ class GetRoleUserUsecase {
   Future<RoleUserResponse?> execute(String id) async {
     try {
       final response = await repository.getRoleUser(id);
-      print("Balance Use Cae ID: $id");
+      print("Balance Use Case ID: $id");
 
       if (response.data.isEmpty) {
         print('data role null: ${response.data}');

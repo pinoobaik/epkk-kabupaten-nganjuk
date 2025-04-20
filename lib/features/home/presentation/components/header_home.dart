@@ -2,6 +2,7 @@ import 'package:e_pkk_nganjuk/commons/constants/colors.dart';
 import 'package:e_pkk_nganjuk/commons/constants/typography.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class HeaderHome extends StatelessWidget {
   final String textUser;
@@ -31,7 +32,7 @@ class HeaderHome extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TypographyStyles.bodySmallMedium(
-                    'Selamat pagi,',
+                    'Selamat datang,',
                     color: TextColors.grey700,
                   ),
                   SizedBox(width: 4.w),
@@ -45,7 +46,7 @@ class HeaderHome extends StatelessWidget {
               ),
               SizedBox(height: 4.h),
               TypographyStyles.captionReguler(
-                'Rabu, 07-08-2024',
+                DateFormat('EEEE, dd-MM-yyyy', 'id_ID').format(DateTime.now()),
                 color: TextColors.grey500,
               ),
             ],

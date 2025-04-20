@@ -5,7 +5,9 @@ import 'package:e_pkk_nganjuk/features/home/presentation/components/widget_carou
 import 'package:e_pkk_nganjuk/features/home/presentation/components/widget_text_pengumuman.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import '../../../../routes/app_routes.dart';
 import '../../../../services/preferences/preferences_service.dart';
 import '../components/header_home.dart';
 
@@ -34,9 +36,11 @@ class _HomeScreenState extends State<HomeScreen> {
     if (user != null) {
       setState(() {
         fullName = user.fullName;
+        role = user.role?.name ?? 'Tidak diketahui';
         roleBidang = user.organization?.name;
       });
       print('Name User Home : $fullName');
+      print('Role Home: $role');
       print('Role Bidang Home: $roleBidang');
     }
   }
@@ -69,10 +73,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         subTitle: 'upload laporan PKK disini',
                         imageAssets: 'assets/images/ic_report.png',
                         onTab: () {
-                          // Get.toNamed(Routes.UPLOAD_LAPORAN, arguments: {
-                          //   'role': role,
-                          //   'role_bidang': roleBidang,
-                          // });
+                          Get.toNamed(Routes.UPLOAD_LAPORAN, arguments: {
+                            'role': role,
+                            'role_bidang': roleBidang,
+                          });
                         },
                       ),
                       SizedBox(height: 14.h),

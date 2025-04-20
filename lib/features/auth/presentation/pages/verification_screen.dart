@@ -2,33 +2,33 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:get/get.dart';
-//
+
 // import '../../../../get/controller/auth_controller.dart';
 // import '../component/footer_text.dart';
 // import '../component/header_text.dart';
 // import '../component/pin_code_fields.dart';
-//
+
 // class VerificationScreen extends StatefulWidget {
 //   const VerificationScreen({super.key});
-//
+
 //   @override
 //   State<VerificationScreen> createState() => _VerificationScreenState();
 // }
-//
+
 // class _VerificationScreenState extends State<VerificationScreen> {
 //   final AuthController authController = Get.find<AuthController>();
 //   final _codeController = TextEditingController();
 //   final _formKey = GlobalKey<FormState>();
-//
+
 //   late String role;
-//
+
 //   @override
 //   void initState() {
 //     super.initState();
 //     role = Get.arguments['role'] ?? 'Tidak diketahui';
 //     print('Role: $role');
 //   }
-//
+
 //   @override
 //   Widget build(BuildContext context) {
 //     final role = Get.arguments['role'] ?? 'Tidak diketahui';
@@ -40,10 +40,10 @@
 //     final roleBidang = Get.arguments['role_bidang'] ?? '';
 //     final kodeOtp = Get.arguments['kode_otp']?.toString() ?? '';
 //     final String status = 'verif';
-//
+
 //     print('Expected OTP: $kodeOtp'); // Debug: Print expected OTP
 //     print('Arguments received in VerificationScreen: ${Get.arguments}');
-//
+
 //     return Scaffold(
 //       backgroundColor: Colors.white,
 //       body: SafeArea(
@@ -101,7 +101,7 @@
 //                 ? null
 //                 : () async {
 //                     final isFormValid = _formKey.currentState!.validate();
-//
+
 //                     if (isFormValid) {
 //                       if (_codeController.text == kodeOtp) {
 //                         await authController.authRegisterController(
