@@ -184,6 +184,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 () => ButtonFill(
                   text: "Lanjut",
                   textColor: Colors.white,
+                  // tandai kemungkinan error
                   isLoading: authController.isAuthLogin.value,
                   onPressed: authController.isAuthLogin.value
                       ? null

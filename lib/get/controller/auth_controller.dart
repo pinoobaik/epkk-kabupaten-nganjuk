@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:e_pkk_nganjuk/usecases/auth_usecase.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:e_pkk_nganjuk/commons/constants/colors.dart';
 
 import '../../features/auth/data/model/auth_model.dart';
 import '../../routes/app_routes.dart';
@@ -8,15 +10,17 @@ import '../../services/preferences/preferences_service.dart';
 
 class AuthController extends GetxController {
   final AuthLoginUseCase authUseCase;
-  // final AuthRegisterUseCase authRegisterUseCase;
+  final AuthRegisterUseCase authRegisterUseCase;
 
   var authResponse = Rxn<LoginResponse>();
   var isAuthLogin = false.obs;
+  var authResponses = Rxn<RegisterResponse>();
+  var isAuthRegister = false.obs;
   var errorMessage = ''.obs;
 
   AuthController({
     required this.authUseCase,
-    // required this.authRegisterUseCase,
+    required this.authRegisterUseCase,
   });
 
   Future<void> checkLoginStatus() async {
@@ -101,56 +105,57 @@ class AuthController extends GetxController {
     passwordMismatch.value = password != confirmPassword;
   }
 
-  // Future<void> authRegisterController({
-  //   required String nama_pengguna,
-  //   required String noWhatsapp,
-  //   required String kecamatan,
-  //   required String desa,
-  //   required String role,
-  //   required String roleBidang,
-  //   required String password,
-  //   required String kodeOtp,
-  //   required String status,
-  // }) async {
-  //   isLoading.value = true;
-  //   errorMessage.value = '';
-  //   try {
-  //     AuthResponse response = await authRegisterUseCase.execute(
-  //       nama_pengguna: nama_pengguna,
-  //       noWhatsapp: noWhatsapp,
-  //       kecamatan: kecamatan,
-  //       desa: desa,
-  //       role: role,
-  //       roleBidang: roleBidang,
-  //       password: password,
-  //       kodeOtp: kodeOtp,
-  //       status: status,
-  //     );
-  //     authResponse.value = response;
-  //     if (response.kode == 1) {
-  //       if (response.data != null) {
-  //         await PreferencesService.saveUser(response.data!);
-  //       }
-  //       Get.snackbar(
-  //         'Berhasil',
-  //         'Membuat akun berhasil! Selamat datang, ${response.data?.namaPengguna}',
-  //         snackPosition: SnackPosition.TOP,
-  //         backgroundColor: Colors.green,
-  //         colorText: Colors.white,
-  //       );
-  //       Get.toNamed(Routes.HOME, arguments: {'role': response.data?.role});
-  //     } else {
-  //       errorMessage.value = response.pesan;
-  //       Get.snackbar(
-  //         'Gagal membuat akun',
-  //         response.pesan,
-  //         snackPosition: SnackPosition.TOP,
-  //         backgroundColor: Colors.red,
-  //         colorText: Colors.white,
-  //       );
-  //     }
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
+  Future<void> authRegisterController({
+    required String nama_pengguna,
+    required String noWhatsapp,
+    required String kecamatan,
+    required String desa,
+    required String role,
+    required String roleBidang,
+    required String password,
+    required String kodeOtp,
+    required String status,
+  }) async {
+    isAuthRegister.value = true;
+    errorMessage.value = '';
+    try {
+      final response = await authRegisterUseCase.execute(
+        nama_pengguna: nama_pengguna,
+        noWhatsapp: noWhatsapp,
+        kecamatan: kecamatan,
+        desa: desa,
+        role: role,
+        roleBidang: roleBidang,
+        password: password,
+        kodeOtp: kodeOtp,
+        status: status,
+      );
+      authResponses.value = response;
+      if (response.statusCode == 200 ) {
+        if (response.data != null) {
+          await PreferencesService.saveUser(response.data!);
+          return;
+        }
+        Get.snackbar(
+          'Berhasil',
+          'Membuat akun berhasil! Selamat datang, ${response.data?.fullName}',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+        Get.toNamed(Routes.HOME, arguments: {'role': response.data?.role});
+      } else {
+        errorMessage.value = response.message;
+        Get.snackbar(
+          'Gagal membuat akun',
+          response.message,
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    } finally {
+      isAuthRegister.value = false;
+    }
+  }
 }

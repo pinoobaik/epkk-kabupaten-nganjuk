@@ -11,11 +11,11 @@ class AuthBinding extends Bindings {
     final repository = AuthRepository(apiHelper: dioClient.apiHelper);
 
     final authLogin = AuthLoginUseCase(repository: repository);
-    //final authRegister = AuthRegisterUseCase(repository: repository);
+    final authRegister = AuthRegisterUseCase(repository: repository);
 
     Get.put(AuthController(
       authUseCase: authLogin,
-      //authRegisterUseCase: authRegister,
+      authRegisterUseCase: authRegister,
     ));
   }
 }

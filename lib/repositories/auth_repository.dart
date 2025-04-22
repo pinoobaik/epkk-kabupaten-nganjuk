@@ -41,7 +41,90 @@ class AuthRepository {
     }
   }
 
-  // Future<AuthResponse> postRegisterAuthRepository({
+  //coba 3
+  Future<RegisterResponse> postRegisterAuthRepository({
+    // required String fullName,
+    // required String phoneNumber,
+    // required String password,
+    // required String kodeOtp,
+    // required String status,
+    // required String idSubdistrict,
+    // required String idVillage,
+    // required String idRole,
+    // required String idOrganization,
+
+    required String nama_pengguna,
+    required String noWhatsapp,
+    required String kecamatan,
+    required String desa,
+    required String role,
+    required String roleBidang,
+    required String kodeOtp,
+    required String password,
+    required String status,
+  }) async {
+    try {
+      final response = await apiHelper.post('/auth/register.php', data: {
+        'nama_pengguna': nama_pengguna,
+        'no_whatsapp': noWhatsapp,
+        'kecamatan': kecamatan,
+        'desa': desa,
+        'role': role,
+        'role_bidang': roleBidang,
+        'password': password,
+        'kode_otp': kodeOtp,
+        'status': status,
+      });
+
+      if (response.statusCode == 200 && response.data != null) {
+        final responseData = response.data;
+        return RegisterResponse.fromJson(responseData);
+      } else {
+      throw Exception('Unexpected response: ${response.statusCode}');
+    }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // coba 2
+  // Future<RegisterResponse> postRegisterAuthRepository({
+  //   required String nama_pengguna,
+  //   required String noWhatsapp,
+  //   required String kecamatan,
+  //   required String desa,
+  //   required String role,
+  //   required String roleBidang,
+  //   required String kodeOtp,
+  //   required String password,
+  //   required String status,
+  // }) async {
+  //   try {
+  //     final response = await apiHelper.post('/auth/register.php', data: {
+  //       'nama_pengguna': nama_pengguna,
+  //       'no_whatsapp': noWhatsapp,
+  //       'kecamatan': kecamatan,
+  //       'desa': desa,
+  //       'role': role,
+  //       'role_bidang': roleBidang,
+  //       'password': password,
+  //       'kode_otp': kodeOtp,
+  //       'status': status,
+  //     });
+
+  //     if (response.statusCode == 200 && response.data != null) {
+  //       final responseData = response.data;
+  //       return RegisterResponse.fromJson(responseData);
+  //     } else {
+  //     throw Exception('Unexpected response: ${response.statusCode}');
+  //   }
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
+
+  // coba 1
+  // Future<RegisterResponse> postRegisterAuthRepository({
   //   required String nama_pengguna,
   //   required String noWhatsapp,
   //   required String kecamatan,
@@ -64,7 +147,7 @@ class AuthRepository {
   //     'kode_otp': kodeOtp,
   //     'status': status,
   //   });
-  //
+  
   //   if (response.statusCode == 200) {
   //     if (response.body.isNotEmpty) {
   //       var body = json.decode(response.body);

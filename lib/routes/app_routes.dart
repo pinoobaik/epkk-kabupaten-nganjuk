@@ -43,10 +43,10 @@ class AppRoutes {
       name: Routes.PICK_ROLE,
       page: () => PickRoleScreen(),
     ),
-    // GetPage(
-    //   name: Routes.VERIFICATION,
-    //   page: () => VerificationScreen(),
-    // ),
+    GetPage(
+      name: Routes.VERIFICATION,
+      page: () => VerificationScreen(),
+    ),
     GetPage(
       name: Routes.HOME,
       page: () => HomeScreen(),

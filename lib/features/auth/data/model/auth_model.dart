@@ -30,6 +30,39 @@ class LoginResponse {
   }
 }
 
+// coba register
+class RegisterResponse {
+  final int? statusCode;
+  final String message;
+  final UserData? data;
+  final String? error;
+
+  RegisterResponse({
+    required this.statusCode,
+    required this.message,
+    this.data,
+    this.error,
+  });
+
+  factory RegisterResponse.fromJson(Map<String, dynamic> json) {
+    return RegisterResponse(
+      statusCode: json['statusCode'] ?? 0,
+      message: json['message'],
+      data: json['data'] != null ? UserData.fromJson(json['data']) : null,
+      error: json['error'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'statusCode': statusCode,
+      'message': message,
+      'data': data?.toJson(),
+      'error': error,
+    };
+  }
+}
+
 class UserData {
   final String id;
   final String fullName;

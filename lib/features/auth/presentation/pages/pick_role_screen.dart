@@ -149,7 +149,7 @@ class PickRoleScreen extends StatelessWidget {
                   'kode_otp': pickRoleController.randomNumber,
                 });
                 print(
-                  'Nama : ${namaPengguna} ' +
+                      'Nama : ${namaPengguna} ' +
                       'Wa : ${noWhatsapp} ' +
                       'Pw : ${password} ' +
                       'Kecamatan : ${pickRoleController.kecamatanSelected.value} ' +
