@@ -1,5 +1,9 @@
+import 'package:e_pkk_nganjuk/features/home/presentation/pages/gotong_royong_screen.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/home_screen.dart';
+import 'package:e_pkk_nganjuk/features/home/presentation/pages/penghayatan_pengamalan_screen.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/upload_laporan.dart';
+import 'package:e_pkk_nganjuk/features/home/presentation/pages/kader_pokja1_screen.dart';
+import 'package:e_pkk_nganjuk/get/binding/upload_report_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/welcome_binding.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
@@ -55,11 +59,21 @@ class AppRoutes {
       name: Routes.UPLOAD_LAPORAN,
       page: () => UploadLaporan(),
     ),
-    // GetPage(
-    //   name: Routes.KADER_POKJA1,
-    //   page: () => KaderPokja1Screen(),
-    //   binding: UploadReportBinging(),
-    // ),
+    GetPage(
+      name: Routes.KADER_POKJA1,
+      page: () => KaderPokja1Screen(),
+      binding: UploadReportBinding(),
+    ),
+    GetPage(
+      name: Routes.GOTONG_ROYONG,
+      page: () => GotongRoyongScreen(),
+      //binding: UploadReportBinding(),
+    ),
+    GetPage(
+      name: Routes.PENGHAYATAN,
+      page: () => PenghayatanPengamalanScreen(),
+      //binding: UploadReportBinding(),
+    ),
   ];
 }
 
@@ -74,4 +88,6 @@ class Routes {
   static const HOME = '/home';
   static const UPLOAD_LAPORAN = '/upload_laporan';
   static const KADER_POKJA1 = '/kader_pokja1';
+  static const GOTONG_ROYONG = '/gotong_royong';
+  static const PENGHAYATAN = '/penghayatan';
 }

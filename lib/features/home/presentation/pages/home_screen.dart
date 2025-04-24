@@ -66,7 +66,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(height: 20.h),
                       WidgetCarouselBanner(),
                       SizedBox(height: 32.h),
-                      CardButtonActions(
+                      if (roleBidang == 'Laporan Umum') ...[
+                        CardButtonActions(
+                        backroundColor: ButtonActionsColors.fillLaporan,
+                        strokeColor: ButtonActionsColors.strokeLaporan,
+                        titleText: 'Upload Laporan Umum',
+                        subTitle: 'upload laporan umum PKK disini',
+                        imageAssets: 'assets/images/ic_report.png',
+                        onTab: () {
+                          Get.toNamed(Routes.UPLOAD_LAPORAN, arguments: {
+                            'role': role,
+                            'role_bidang': roleBidang,
+                          });
+                        },
+                      ),
+                      ] else ... [
+                        CardButtonActions(
                         backroundColor: ButtonActionsColors.fillLaporan,
                         strokeColor: ButtonActionsColors.strokeLaporan,
                         titleText: 'Upload Laporan',
@@ -79,6 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           });
                         },
                       ),
+                      ],
                       SizedBox(height: 14.h),
                       CardButtonActions(
                         backroundColor: ButtonActionsColors.fillGalery,

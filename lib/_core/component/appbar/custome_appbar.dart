@@ -117,7 +117,7 @@ class AppBarSecondary extends CustomeAppBar {
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(1.0),
         child: Container(
-          color: TextColors.grey700,
+          color: TextColors.grey200,
           height: 1.0,
         ),
       ),

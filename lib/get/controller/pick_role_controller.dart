@@ -13,6 +13,7 @@ class PickRoleController extends GetxController {
 
   var desaList = <String>[].obs;
   var roleBidang = <String>[].obs;
+  var selectedRoleBidangID = 0.obs;
 
   @override
   void onInit() {
@@ -33,7 +34,17 @@ class PickRoleController extends GetxController {
 
   void updateSelectedRole(String selectedRole) {
     selectedRoleBidang.value = selectedRole;
-    print('Role bidang: $selectedRoleBidang');
+    // Ambil index dari role yang dipilih
+    final index = RoleBidangList.roleBidangList.indexOf(selectedRole);
+    
+    // Ambil ID berdasarkan urutan index
+    if (index != -1 && index < RoleBidangList.roleBidangIDList.length) {
+      selectedRoleBidangID.value = RoleBidangList.roleBidangIDList[index];
+    } else {
+      selectedRoleBidangID.value = 0; // fallback jika role tidak ditemukan
+    }
+    print('Role bidang: $selectedRole (${selectedRoleBidangID.value})');
+    // print('Role bidang: $selectedRoleBidang');
   }
 
   // Fungsi untuk mengenerate angka acak

@@ -146,6 +146,7 @@ class PickRoleScreen extends StatelessWidget {
                   'kecamatan': pickRoleController.kecamatanSelected.value,
                   'desa': pickRoleController.selectedDesa.value,
                   'role_bidang': pickRoleController.selectedRoleBidang.value,
+                  'role_bidang': pickRoleController.selectedRoleBidangID.value,
                   'kode_otp': pickRoleController.randomNumber,
                 });
                 print(

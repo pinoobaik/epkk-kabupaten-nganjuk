@@ -17,7 +17,7 @@ class UploadLaporan extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomeAppBar(
+      appBar: AppBarPrimary(
         title: 'Upload Laporan',
       ),
       body: SafeArea(
@@ -48,7 +48,12 @@ class UploadLaporan extends StatelessWidget {
                     strokeColor: Color(0xFFFFE990),
                     titleText: 'Penghayatan & Pengamalan Pancasila',
                     subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
+                    onTab: () {
+                      Get.toNamed(Routes.PENGHAYATAN, arguments: {
+                        // 'role': role,
+                        // 'role_bidang': roleBidang,
+                      });
+                    },
                     imageAssets: 'assets/images/ic_garuda.png',
                   ),
                   SizedBox(height: 16.h),
@@ -57,19 +62,24 @@ class UploadLaporan extends StatelessWidget {
                     strokeColor: Color(0xFFFFFDAAA),
                     titleText: 'Gotong Royong',
                     subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
+                    onTab: () {
+                      Get.toNamed(Routes.GOTONG_ROYONG, arguments: {
+                        // 'role': role,
+                        // 'role_bidang': roleBidang,
+                      });
+                    },
                     imageAssets: 'assets/images/ic_gotong_royong.png',
                   ),
                 ] else if (roleBidang == 'Kader Pokja II') ...[
-                  CardButtonActions(
-                    backroundColor: Color(0xFFFFF4C6),
-                    strokeColor: Color(0xFFFFE990),
-                    titleText: 'Kader Pokja 2',
-                    subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
-                    imageAssets: 'assets/images/ic_organisasi.png',
-                  ),
-                  SizedBox(height: 16.h),
+                  // CardButtonActions(
+                  //   backroundColor: Color(0xFFFFF4C6),
+                  //   strokeColor: Color(0xFFFFE990),
+                  //   titleText: 'Kader Pokja 2',
+                  //   subTitle: 'Klik untuk melanjutkan',
+                  //   onTab: () {},
+                  //   imageAssets: 'assets/images/ic_organisasi.png',
+                  // ),
+                  // SizedBox(height: 16.h),
                   CardButtonActions(
                     backroundColor: Color(0xFFFFF4C6),
                     strokeColor: Color(0xFFFFE990),
@@ -91,7 +101,7 @@ class UploadLaporan extends StatelessWidget {
                   CardButtonActions(
                     backroundColor: Color(0xFFFFF4C6),
                     strokeColor: Color(0xFFFFE990),
-                    titleText: 'Kader Pokja 3',
+                    titleText: 'Kader Pokja III',
                     subTitle: 'Klik untuk melanjutkan',
                     onTab: () {},
                     imageAssets: 'assets/images/ic_organisasi.png',
@@ -100,7 +110,7 @@ class UploadLaporan extends StatelessWidget {
                   CardButtonActions(
                     backroundColor: Color(0xFFFFF4C6),
                     strokeColor: Color(0xFFFFE990),
-                    titleText: 'Penghayatan & Pengamalan Pancasila',
+                    titleText: 'Pangan',
                     subTitle: 'Klik untuk melanjutkan',
                     onTab: () {},
                     imageAssets: 'assets/images/ic_garuda.png',
@@ -109,7 +119,16 @@ class UploadLaporan extends StatelessWidget {
                   CardButtonActions(
                     backroundColor: Color(0xFFFFEED5),
                     strokeColor: Color(0xFFFFFDAAA),
-                    titleText: 'Gotong Royong',
+                    titleText: 'Sandang',
+                    subTitle: 'Klik untuk melanjutkan',
+                    onTab: () {},
+                    imageAssets: 'assets/images/ic_gotong_royong.png',
+                  ),
+                  SizedBox(height: 16.h),
+                  CardButtonActions(
+                    backroundColor: Color(0xFFFFEED5),
+                    strokeColor: Color(0xFFFFFDAAA),
+                    titleText: 'Perumahan & Tata Laksana Rumah Tangga',
                     subTitle: 'Klik untuk melanjutkan',
                     onTab: () {},
                     imageAssets: 'assets/images/ic_gotong_royong.png',
@@ -118,7 +137,7 @@ class UploadLaporan extends StatelessWidget {
                   CardButtonActions(
                     backroundColor: Color(0xFFFFF4C6),
                     strokeColor: Color(0xFFFFE990),
-                    titleText: 'Kader Pokja 4',
+                    titleText: 'Kader Pokja IV',
                     subTitle: 'Klik untuk melanjutkan',
                     onTab: () {},
                     imageAssets: 'assets/images/ic_organisasi.png',
@@ -127,7 +146,7 @@ class UploadLaporan extends StatelessWidget {
                   CardButtonActions(
                     backroundColor: Color(0xFFFFF4C6),
                     strokeColor: Color(0xFFFFE990),
-                    titleText: 'Penghayatan & Pengamalan Pancasila',
+                    titleText: 'Kesehatan',
                     subTitle: 'Klik untuk melanjutkan',
                     onTab: () {},
                     imageAssets: 'assets/images/ic_garuda.png',
@@ -136,38 +155,47 @@ class UploadLaporan extends StatelessWidget {
                   CardButtonActions(
                     backroundColor: Color(0xFFFFEED5),
                     strokeColor: Color(0xFFFFFDAAA),
-                    titleText: 'Gotong Royong',
+                    titleText: 'Kelestarian Lingkungan Hidup',
+                    subTitle: 'Klik untuk melanjutkan',
+                    onTab: () {},
+                    imageAssets: 'assets/images/ic_gotong_royong.png',
+                  ),
+                  SizedBox(height: 16.h),
+                  CardButtonActions(
+                    backroundColor: Color(0xFFFFEED5),
+                    strokeColor: Color(0xFFFFFDAAA),
+                    titleText: 'Perencanaan Sehat',
                     subTitle: 'Klik untuk melanjutkan',
                     onTab: () {},
                     imageAssets: 'assets/images/ic_gotong_royong.png',
                   ),
                 ] else if (roleBidang == 'Laporan Umum') ...[
-                  CardButtonActions(
-                    backroundColor: Color(0xFFFFF4C6),
-                    strokeColor: Color(0xFFFFE990),
-                    titleText: 'Laporan Umum',
-                    subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
-                    imageAssets: 'assets/images/ic_organisasi.png',
-                  ),
-                  SizedBox(height: 16.h),
-                  CardButtonActions(
-                    backroundColor: Color(0xFFFFF4C6),
-                    strokeColor: Color(0xFFFFE990),
-                    titleText: 'Penghayatan & Pengamalan Pancasila',
-                    subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
-                    imageAssets: 'assets/images/ic_garuda.png',
-                  ),
-                  SizedBox(height: 16.h),
-                  CardButtonActions(
-                    backroundColor: Color(0xFFFFEED5),
-                    strokeColor: Color(0xFFFFFDAAA),
-                    titleText: 'Gotong Royong',
-                    subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
-                    imageAssets: 'assets/images/ic_gotong_royong.png',
-                  ),
+                  // CardButtonActions(
+                  //   backroundColor: Color(0xFFFFF4C6),
+                  //   strokeColor: Color(0xFFFFE990),
+                  //   titleText: 'Laporan Umum',
+                  //   subTitle: 'Klik untuk melanjutkan',
+                  //   onTab: () {},
+                  //   imageAssets: 'assets/images/ic_organisasi.png',
+                  // ),
+                  // SizedBox(height: 16.h),
+                  // CardButtonActions(
+                  //   backroundColor: Color(0xFFFFF4C6),
+                  //   strokeColor: Color(0xFFFFE990),
+                  //   titleText: 'Penghayatan & Pengamalan Pancasila',
+                  //   subTitle: 'Klik untuk melanjutkan',
+                  //   onTab: () {},
+                  //   imageAssets: 'assets/images/ic_garuda.png',
+                  // ),
+                  // SizedBox(height: 16.h),
+                  // CardButtonActions(
+                  //   backroundColor: Color(0xFFFFEED5),
+                  //   strokeColor: Color(0xFFFFFDAAA),
+                  //   titleText: 'Gotong Royong',
+                  //   subTitle: 'Klik untuk melanjutkan',
+                  //   onTab: () {},
+                  //   imageAssets: 'assets/images/ic_gotong_royong.png',
+                  // ),
                 ],
               ],
             ),

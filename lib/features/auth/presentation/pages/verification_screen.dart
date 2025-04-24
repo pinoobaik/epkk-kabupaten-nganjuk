@@ -29,22 +29,22 @@ class _VerificationScreenState extends State<VerificationScreen> {
     print('Role: $role');
   }
 
-  int getRoleBidangId(String roleName) {
-    switch (roleName) {
-      case 'Pokja 1':
-        return 1;
-      case 'Pokja 2':
-        return 2;
-      case 'Pokja 3':
-        return 3;
-      case 'Pokja 4':
-        return 4;
-      case 'Laporan Umum':
-        return 5;
-      default:
-        return 0;
-      }
-  }
+  // int getRoleBidangId(String roleName) {
+  //   switch (roleName) {
+  //     case 'Pokja 1':
+  //       return 1;
+  //     case 'Pokja 2':
+  //       return 2;
+  //     case 'Pokja 3':
+  //       return 3;
+  //     case 'Pokja 4':
+  //       return 4;
+  //     case 'Laporan Umum':
+  //       return 5;
+  //     default:
+  //       return 0;
+  //     }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
     final password = Get.arguments['password'] ?? '';
     final kecamatan = Get.arguments['kecamatan'] ?? '';
     final desa = Get.arguments['desa'] ?? '';
-    final roleBidang = Get.arguments['role_bidang'] ?? '';
+    // final roleBidang = Get.arguments['role_bidang'] ?? '';
+    final roleBidang = (Get.arguments['role_bidang'] is int)
+      ? Get.arguments['role_bidang'].toString()
+      : (Get.arguments['role_bidang'] ?? '');
     final kodeOtp = Get.arguments['kode_otp']?.toString() ?? '';
     final String status = 'verif';
 
