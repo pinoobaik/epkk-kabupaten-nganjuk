@@ -138,6 +138,20 @@ class TypographyStyles extends StatelessWidget {
           color: color,
         );
 
+  TypographyStyles.bodyCaptionBold(
+    this.text, {
+    super.key,
+    this.textAlign = TextAlign.start,
+    this.overflow = TextOverflow.ellipsis,
+    this.maxlines,
+    this.color,
+  }) : style = TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w700,
+          color: color,
+        );
+
   TypographyStyles.bodyCaptionSmallReguler(
     this.text, {
     super.key,

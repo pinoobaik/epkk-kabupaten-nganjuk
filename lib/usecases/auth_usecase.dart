@@ -26,26 +26,26 @@ class AuthRegisterUseCase {
   AuthRegisterUseCase({required this.repository});
 
   Future<RegisterResponse> execute({
-    required String nama_pengguna,
-    required String noWhatsapp,
-    required String kecamatan,
-    required String desa,
-    required String role,
-    required String roleBidang,
+    required String full_name,
+    required String phone_number,
+    required String id_subdistrict,
+    required String id_village,
+    required String role_id,
+    required String id_organization,
     required String password,
-    required String kodeOtp,
-    required String status,
+    required String kode_otp,
+    // required String status,
   }) async {
     return await repository.postRegisterAuthRepository(
-      nama_pengguna: nama_pengguna,
-      noWhatsapp: noWhatsapp,
-      kecamatan: kecamatan,
-      desa: desa,
-      role: role,
-      roleBidang: roleBidang,
-      kodeOtp: kodeOtp,
-      password: password,
-      status: status,
+      full_name : full_name,
+      phone_number : phone_number,
+      id_subdistrict : id_subdistrict,
+      id_village : id_village,
+      role_id : role_id,
+      id_organization: id_organization,
+      kode_otp : kode_otp,
+      password : password,
+      // status: status,
     );
   }
 }

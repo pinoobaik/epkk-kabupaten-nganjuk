@@ -106,29 +106,45 @@ class AuthController extends GetxController {
   }
 
   Future<void> authRegisterController({
-    required String nama_pengguna,
-    required String noWhatsapp,
-    required String kecamatan,
-    required String desa,
-    required String role,
-    required String roleBidang,
+    required String full_name,
+    required String phone_number,
+    required String id_subdistrict,
+    required String id_village,
+    required String role_id,
+    required String id_organization,
+    required String kode_otp,
     required String password,
-    required String kodeOtp,
-    required String status,
+    // required String full_name,
+    // required String phone_number,
+    // required String kecamatan,
+    // required String desa,
+    // required String id_role,
+    // required String roleBidang,
+    // required String password,
+    // required String kodeOtp,
+    //required String status,
   }) async {
     isAuthRegister.value = true;
     errorMessage.value = '';
     try {
       final response = await authRegisterUseCase.execute(
-        nama_pengguna: nama_pengguna,
-        noWhatsapp: noWhatsapp,
-        kecamatan: kecamatan,
-        desa: desa,
-        role: role,
-        roleBidang: roleBidang,
+        // nama_pengguna: nama_pengguna,
+        // noWhatsapp: noWhatsapp,
+        // kecamatan: kecamatan,
+        // desa: desa,
+        // role: role,
+        // roleBidang: roleBidang,
+        // password: password,
+        // kodeOtp: kodeOtp,
+        // status: status,
+        full_name: full_name,
+        phone_number: phone_number,
+        id_subdistrict: id_subdistrict,
+        id_village: id_village,
+        role_id: role_id,
+        id_organization: id_organization,
         password: password,
-        kodeOtp: kodeOtp,
-        status: status,
+        kode_otp: kode_otp,
       );
       authResponses.value = response;
       if (response.statusCode == 200 ) {
@@ -136,14 +152,7 @@ class AuthController extends GetxController {
           await PreferencesService.saveUser(response.data!);
           return;
         }
-        Get.snackbar(
-          'Berhasil',
-          'Membuat akun berhasil! Selamat datang, ${response.data?.fullName}',
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-        );
-        Get.toNamed(Routes.HOME, arguments: {'role': response.data?.role});
+        
       } else {
         errorMessage.value = response.message;
         Get.snackbar(

@@ -21,12 +21,16 @@ class PickRoleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final role = Get.arguments['roleID'] ?? 'ID Not Found';
-    final roleName = Get.arguments['roleName'] ?? 'Not Found';
-    final namaPengguna = Get.arguments['nama_pengguna'] ?? 'Not Found';
-    final noWhatsapp = Get.arguments['no_whatsapp'] ?? 'Not Found';
+    final role_id = Get.arguments['role_id'] ?? 'ID Not Found';
+    final role_name = Get.arguments['role_name'] ?? 'Not Found';
+    final full_name = Get.arguments['full_name'] ?? 'Not Found';
+    final phone_number = Get.arguments['phone_number'] ?? 'Not Found';
     final password = Get.arguments['password'] ?? 'Not Found';
-    print('Role: $role');
+    print('role_id : $role_id');
+    print('role_name : $role_name');
+    print('full_name : $full_name');
+    print('phone_number : $phone_number');
+    print('password : $password');
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -37,7 +41,11 @@ class PickRoleScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconButtonBack(
-                onTab: () {},
+                onTab: () {
+                  Get.toNamed(Routes.REGISTER, arguments: {
+                    'roleID': role_id, 
+                    'roleName': role_name});
+                },
               ),
               SizedBox(height: 32.h),
               Expanded(
@@ -138,26 +146,36 @@ class PickRoleScreen extends StatelessWidget {
                 // pickRoleController.sendKodeOtp(noWhatsapp);
 
                 Get.toNamed(Routes.VERIFICATION, arguments: {
-                  'roleID': role,
-                  'roleName': roleName,
-                  'nama_pengguna': namaPengguna,
-                  'no_whatsapp': noWhatsapp,
+                  'role_id': role_id,
+                  'role_name': role_name,
+                  'full_name': full_name,
+                  'phone_number': phone_number,
                   'password': password,
-                  'kecamatan': pickRoleController.kecamatanSelected.value,
-                  'desa': pickRoleController.selectedDesa.value,
-                  'role_bidang': pickRoleController.selectedRoleBidang.value,
-                  'role_bidang': pickRoleController.selectedRoleBidangID.value,
+                  'id_subdistrict': pickRoleController.kecamatanSelected.value,
+                  'id_village': pickRoleController.selectedDesa.value,
+                  'organization_name': pickRoleController.selectedRoleBidang.value,
+                  'id_organization': pickRoleController.selectedRoleBidangID.value,
                   'kode_otp': pickRoleController.randomNumber,
                 });
-                print(
-                      'Nama : ${namaPengguna} ' +
-                      'Wa : ${noWhatsapp} ' +
-                      'Pw : ${password} ' +
-                      'Kecamatan : ${pickRoleController.kecamatanSelected.value} ' +
-                      'Desa : ${pickRoleController.selectedDesa.value} ' +
-                      'roleBidang : ${pickRoleController.selectedRoleBidang.value} ' +
-                      'Kode OTP : ${pickRoleController.randomNumber}',
-                );
+                print('role_id : $role_id');
+                print('role_name : $role_name');
+                print('full_name : $full_name');
+                print('phone_number : $phone_number');
+                print('password : $password');
+                print('id_subdistrict : ${pickRoleController.kecamatanSelected.value}');
+                print('id_village : ${pickRoleController.selectedDesa.value}');
+                print('organization_name : ${pickRoleController.selectedRoleBidang.value}');
+                print('id_organization : ${pickRoleController.selectedRoleBidangID.value}');
+                print('kode_otp : ${pickRoleController.randomNumber}');
+                // print(
+                //       'Nama : ${namaPengguna} ' +
+                //       'Wa : ${noWhatsapp} ' +
+                //       'Pw : ${password} ' +
+                //       'Kecamatan : ${pickRoleController.kecamatanSelected.value} ' +
+                //       'Desa : ${pickRoleController.selectedDesa.value} ' +
+                //       'roleBidang : ${pickRoleController.selectedRoleBidang.value} ' +
+                //       'Kode OTP : ${pickRoleController.randomNumber}',
+                // );
               }
             },
           ),

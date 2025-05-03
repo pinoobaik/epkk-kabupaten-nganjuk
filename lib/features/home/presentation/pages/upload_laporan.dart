@@ -11,9 +11,17 @@ class UploadLaporan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final role = Get.arguments['role'] ?? 'Not Found';
-    final roleBidang = Get.arguments['role_bidang'] ?? 'Not Found';
+    final id_user = Get.arguments['id_user'] ?? 'Not Found';
+    final full_name = Get.arguments['full_name'] ?? 'Not Found';
+    final id_role = Get.arguments['id_role'] ?? 'Not Found';
+    final role = Get.arguments['name_role'] ?? 'Not Found';
+    final id_organization = Get.arguments['id_organization'] ?? 'Not Found';
+    final roleBidang = Get.arguments['name_organization'] ?? 'Not Found';
     print('Role Upload Laporan: $role + $roleBidang');
+    print('id_user: $id_user');
+    print('fullName: $full_name');
+    print('id_role: $id_role');
+    print('id_organization: $id_organization');
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -36,8 +44,12 @@ class UploadLaporan extends StatelessWidget {
                     subTitle: 'Klik untuk melanjutkan',
                     onTab: () {
                       Get.toNamed(Routes.KADER_POKJA1, arguments: {
-                        'role': role,
-                        'role_bidang': roleBidang,
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
                       });
                     },
                     imageAssets: 'assets/images/ic_organisasi.png',
@@ -50,6 +62,12 @@ class UploadLaporan extends StatelessWidget {
                     subTitle: 'Klik untuk melanjutkan',
                     onTab: () {
                       Get.toNamed(Routes.PENGHAYATAN, arguments: {
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
                         // 'role': role,
                         // 'role_bidang': roleBidang,
                       });
@@ -169,34 +187,7 @@ class UploadLaporan extends StatelessWidget {
                     onTab: () {},
                     imageAssets: 'assets/images/ic_gotong_royong.png',
                   ),
-                ] else if (roleBidang == 'Laporan Umum') ...[
-                  // CardButtonActions(
-                  //   backroundColor: Color(0xFFFFF4C6),
-                  //   strokeColor: Color(0xFFFFE990),
-                  //   titleText: 'Laporan Umum',
-                  //   subTitle: 'Klik untuk melanjutkan',
-                  //   onTab: () {},
-                  //   imageAssets: 'assets/images/ic_organisasi.png',
-                  // ),
-                  // SizedBox(height: 16.h),
-                  // CardButtonActions(
-                  //   backroundColor: Color(0xFFFFF4C6),
-                  //   strokeColor: Color(0xFFFFE990),
-                  //   titleText: 'Penghayatan & Pengamalan Pancasila',
-                  //   subTitle: 'Klik untuk melanjutkan',
-                  //   onTab: () {},
-                  //   imageAssets: 'assets/images/ic_garuda.png',
-                  // ),
-                  // SizedBox(height: 16.h),
-                  // CardButtonActions(
-                  //   backroundColor: Color(0xFFFFEED5),
-                  //   strokeColor: Color(0xFFFFFDAAA),
-                  //   titleText: 'Gotong Royong',
-                  //   subTitle: 'Klik untuk melanjutkan',
-                  //   onTab: () {},
-                  //   imageAssets: 'assets/images/ic_gotong_royong.png',
-                  // ),
-                ],
+                ] 
               ],
             ),
           ),

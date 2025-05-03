@@ -19,9 +19,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late String id_user;
+  late String id_role;
   late String role;
+  String? id_organization;
   String? roleBidang;
-  String? fullName = "User";
+  String? fullName = "User fullname tidak diketui";
 
   @override
   void initState() {
@@ -35,13 +38,18 @@ class _HomeScreenState extends State<HomeScreen> {
     final user = await PreferencesService.getUser();
     if (user != null) {
       setState(() {
+        id_user = user.id?? 'id user tidak diketahui';
         fullName = user.fullName;
-        role = user.role?.name ?? 'Tidak diketahui';
-        roleBidang = user.organization?.name;
+        id_role = user.role?.id?? 'id role tidak diketahui';
+        role = user.role?.name?? 'name role tidak diketahui';
+        id_organization = user.organization?.id?? 'id organization tidak diketahui';
+        roleBidang = user.organization?.name?? 'name organization tidak diketahui';
       });
-      print('Name User Home : $fullName');
-      print('Role Home: $role');
-      print('Role Bidang Home: $roleBidang');
+      print('fullName : $fullName');
+      print('id_role: $id_role');
+      print('role: $role');
+      print('id_organization: $id_organization');
+      print('organization: $roleBidang');
     }
   }
 
@@ -54,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HeaderHome(
-              textUser: fullName ?? 'User',
+              textUser: fullName ?? 'User fullname tidak diketahui',
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -74,9 +82,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         subTitle: 'upload laporan umum PKK disini',
                         imageAssets: 'assets/images/ic_report.png',
                         onTab: () {
-                          Get.toNamed(Routes.UPLOAD_LAPORAN, arguments: {
-                            'role': role,
-                            'role_bidang': roleBidang,
+                          Get.toNamed(Routes.LAPORAN_UMUM1, arguments: {
+                            'id_user': id_user,
+                            'full_name': fullName,
+                            'id_role': id_role,
+                            'name_role': role,
+                            'id_organization': id_organization,
+                            'name_organization': roleBidang,
                           });
                         },
                       ),
@@ -89,8 +101,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         imageAssets: 'assets/images/ic_report.png',
                         onTab: () {
                           Get.toNamed(Routes.UPLOAD_LAPORAN, arguments: {
-                            'role': role,
-                            'role_bidang': roleBidang,
+                            'id_user': id_user,
+                            'full_name': fullName,
+                            'id_role': id_role,
+                            'name_role': role,
+                            'id_organization': id_organization,
+                            'name_organization': roleBidang,
                           });
                         },
                       ),

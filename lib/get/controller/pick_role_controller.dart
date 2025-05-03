@@ -9,7 +9,7 @@ class PickRoleController extends GetxController {
   var kecamatanSelected = ''.obs;
   var selectedDesa = ''.obs;
   var selectedRoleBidang = ''.obs;
-  int randomNumber = 1000;
+  String randomNumber = "1000";
 
   var desaList = <String>[].obs;
   var roleBidang = <String>[].obs;
@@ -50,7 +50,7 @@ class PickRoleController extends GetxController {
   // Fungsi untuk mengenerate angka acak
   void generateRandomNumber() {
     Random random = new Random();
-    randomNumber = random.nextInt(9000) + 1000;
+    randomNumber = (random.nextInt(9000) + 1000).toString();
     print('Generated Random Number: $randomNumber'); // Debug print
   }
 

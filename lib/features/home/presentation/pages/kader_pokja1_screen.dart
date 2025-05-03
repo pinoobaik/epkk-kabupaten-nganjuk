@@ -5,13 +5,13 @@ import 'package:e_pkk_nganjuk/_core/component/appbar/custome_appbar.dart';
 import 'package:e_pkk_nganjuk/_core/component/button/button_fill.dart';
 import 'package:e_pkk_nganjuk/_core/component/form/input_form_field.dart';
 import 'package:e_pkk_nganjuk/_core/utils/validators/validator_form.dart';
-import 'package:e_pkk_nganjuk/get/controller/upload_report_controller.dart';
+import 'package:e_pkk_nganjuk/get/controller/kader_pokja1_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-import '../../../../services/preferences/preferences_service.dart';
+//import '../../../../services/preferences/preferences_service.dart';
 
 class KaderPokja1Screen extends StatefulWidget {
   const KaderPokja1Screen({super.key});
@@ -22,22 +22,27 @@ class KaderPokja1Screen extends StatefulWidget {
 
 class _KaderPokja1ScreenState extends State<KaderPokja1Screen> {
   String? id_user;
+  String? id_role;
+  String? id_organization;
+  String? full_name;
+  String? name_role;
+  String? name_organization;
+
   final pkbnController = TextEditingController();
   final pkdrtController = TextEditingController();
   final polaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final UploadReportController uploadReportController =
-      Get.find<UploadReportController>();
+  final UploadReportController uploadReportController = Get.find<UploadReportController>();
 
-  Future<void> loadUserData() async {
-    final user = await PreferencesService.getUser();
-    if (user != null) {
-      setState(() {
-        id_user = user.id;
-      });
-      print('Name User Home : $id_user');
-    }
-  }
+  // Future<void> loadUserData() async {
+  //   final data = await PreferencesService.getUser();
+  //   if (data != null) {
+  //     setState(() {
+  //       id = data.id!;
+  //     });
+  //     print('Name User Home : $id');
+  //   }
+  // }
 
   void clearForm() {
     pkbnController.clear();
@@ -48,14 +53,23 @@ class _KaderPokja1ScreenState extends State<KaderPokja1Screen> {
   @override
   void initState() {
     super.initState();
-    loadUserData();
+    //loadUserData();
+    final args = Get.arguments;
+    id_user = args['id_user'];
+    full_name = args['full_name'];
+    id_role = args['id_role'];
+    name_role = args['name_role'];
+    id_organization = args['id_organization'];
+    name_organization = args['name_organization'];
+
+    print('Diterima dari argument: id_user=$id_user, id_role=$id_role, id_org=$id_organization');
   }
 
   @override
   Widget build(BuildContext context) {
-    final role = Get.arguments['role'] ?? 'Not Found';
-    final roleBidang = Get.arguments['role_bidang'] ?? 'Not Found';
-    print('Role Kader Pokja I: $role + $roleBidang');
+    // final id_role = Get.arguments['role'] ?? 'Not Found';
+    // final id_organization = Get.arguments['role_bidang'] ?? 'Not Found';
+    print('Role Upload Laporan: $name_role + $name_organization');
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -110,23 +124,20 @@ class _KaderPokja1ScreenState extends State<KaderPokja1Screen> {
 
                       if (isFormValid) {
                         try {
-                          await uploadReportController
-                              .createKaderPokja1Controller(
+                          await uploadReportController.createKaderPokja1Controller(
                             PKBN: pkbnController.text,
                             PKDRT: pkdrtController.text,
                             pola_asuh: polaController.text,
-                            role: role,
-                            role_bidang: roleBidang,
+                            id_role: id_role!,
+                            id_organization: id_organization!,
                             id_user: id_user!,
                           );
 
-                          // Hanya tampilkan snackbar berhasil jika kode respons adalah 1
-                          if (uploadReportController
-                                      .reportKaderPokja1Model.value !=
-                                  null &&
-                              uploadReportController
-                                      .reportKaderPokja1Model.value!.kode ==
-                                  1) {
+                          // Hanya tampilkan snackbar berhasil jika kode respons adalah 200
+                          if (uploadReportController.reportKaderPokja1Model.value != null 
+                              &&
+                              uploadReportController.reportKaderPokja1Model.value!.statusCode == 200
+                              ) {
                             Get.snackbar(
                               'Berhasil',
                               'Laporan berhasil diupload!',

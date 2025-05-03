@@ -31,14 +31,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   late String roleId;
   late String roleName;
+  // late String role_id;
+  // late String role_name;
 
   @override
   void initState() {
     super.initState();
     roleId = Get.arguments['roleID'] ?? 'ID Not Found';
     roleName = Get.arguments['roleName'] ?? 'Not Found';
-    print('Role ID: $roleId');
-    print('Role: $roleName');
+    // role_id = Get.arguments['role_id'] ?? 'ID Not Found';
+    // role_name = Get.arguments['role_name'] ?? 'Not Found';
+    print('role_id: $roleId');
+    print('role_name: $roleName');
   }
 
   @override
@@ -53,7 +57,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               IconButtonBack(
                 onTab: () {
-                  Get.toNamed(Routes.AUTH_LOGIN, arguments: {'roleID': roleId, 'roleName': roleName});
+                  Get.toNamed(Routes.AUTH_LOGIN, arguments: {
+                    'roleID': roleId, 
+                    'roleName': roleName});
                 },
               ),
               SizedBox(height: 32.h),
@@ -206,15 +212,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               );
                             } else {
                               Get.toNamed(Routes.PICK_ROLE, arguments: {
-                                'roleID': roleId,
-                                'roleName': roleName,
-                                'nama_pengguna': _nameController.text,
-                                'no_whatsapp': _nomorController.text,
+                                'role_id': roleId,
+                                'role_name': roleName,
+                                'full_name': _nameController.text,
+                                'phone_number': _nomorController.text,
                                 'password': _passController.text,
                               });
-                              print('Nama : ${_nameController.text}');
-                              print('Wa : ${_nomorController.text}');
-                              print('Pw : ${_passController.text}');
+                              print('role_id : $roleId');
+                              print('role_name : $roleName');
+                              print('full_name : ${_nameController.text}');
+                              print('phone_number : ${_nomorController.text}');
+                              print('password : ${_passController.text}');
                             }
                           }
                         },
@@ -226,7 +234,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               firstText: 'Sudah punya akun?',
               secondText: 'Masuk',
               onTab: () {
-                Get.toNamed(Routes.AUTH_LOGIN, arguments: {'roleID': roleId, 'roleName': roleName});
+                Get.toNamed(Routes.AUTH_LOGIN, arguments: {
+                  'roleID': roleId, 
+                  'roleName': roleName});
               },
             ),
           ],

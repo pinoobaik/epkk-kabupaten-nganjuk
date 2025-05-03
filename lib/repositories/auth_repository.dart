@@ -44,49 +44,40 @@ class AuthRepository {
 
   //coba 3
   Future<RegisterResponse> postRegisterAuthRepository({
-    // required String fullName,
-    // required String phoneNumber,
-    // required String password,
-    // required String kodeOtp,
-    // required String status,
-    // required String idSubdistrict,
-    // required String idVillage,
-    // required String idRole,
-    // required String idOrganization,
-
-    required String nama_pengguna,
-    required String noWhatsapp,
-    required String kecamatan,
-    required String desa,
-    required String role,
-    required String roleBidang,
-    required String kodeOtp,
+    required String full_name,
+    required String phone_number,
+    required String id_subdistrict,
+    required String id_village,
+    required String role_id,
+    required String id_organization,
+    required String kode_otp,
     required String password,
-    required String status,
-  }) async {
-    try {
-      final response = await apiHelper.post('/auth/register.php', data: {
-        'nama_pengguna': nama_pengguna,
-        'no_whatsapp': noWhatsapp,
-        'kecamatan': kecamatan,
-        'desa': desa,
-        'role': role,
-        'role_bidang': roleBidang,
-        'password': password,
-        'kode_otp': kodeOtp,
-        'status': status,
-      });
+    // required String status,
+    }) async {
+      try {
+        final response = await apiHelper.post('/auth/register.php', data: {
+          'full_name': full_name,
+          'phone_number': phone_number,
+          'id_subdistrict': id_subdistrict,
+          'id_village': id_village,
+          'id_role': role_id,
+          'id_organization': id_organization,
+          'password': password,
+          'kode_otp': kode_otp,
+          // 'status': status,
+        });
 
-      if (response.statusCode == 200 && response.data != null) {
-        final responseData = response.data;
-        return RegisterResponse.fromJson(responseData);
-      } else {
-      throw Exception('Unexpected response: ${response.statusCode}');
+        if (response.statusCode == 200 && response.data != null) {
+          final responseData = response.data;
+          return RegisterResponse.fromJson(responseData);
+        } else {
+        throw Exception('Unexpected response: ${response.statusCode}');
+      }
+      } catch (e) {
+        rethrow;
+      }
     }
-    } catch (e) {
-      rethrow;
-    }
-  }
+}
 
   // coba 2
   // Future<RegisterResponse> postRegisterAuthRepository({
@@ -165,4 +156,4 @@ class AuthRepository {
   //     throw Exception('Failed to connect to the server');
   //   }
   // }
-}
+

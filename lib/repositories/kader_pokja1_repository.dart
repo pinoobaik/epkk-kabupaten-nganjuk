@@ -1,52 +1,38 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:e_pkk_nganjuk/features/home/data/model/report_kader_pokja1_model.dart';
-import 'package:http/http.dart' as http;
-
 import '../services/api/api_helper.dart';
 
 class UploadReportRepository {
-
   final ApiHelper apiHelper;
 
   UploadReportRepository({required this.apiHelper});
 
   Future<ReportKaderPokja1Model> postKaderPokja1Repository({
+    required String id_user,
     required String PKBN,
     required String PKDRT,
     required String pola_asuh,
-    required String role,
-    required String role_bidang,
-    required String id_user,
+    required String id_role,
+    required String id_organization,
+    
   }) async {
-    // Uri url = Uri.parse(ApiHelper.url + 'kader-pokja1/insert_kader1.php');
+    
     try {
-      final response = await apiHelper.post('/report/kader-pokja1/insert_kader1.php',
+      final response = await apiHelper.post(
+        '/report/kader-pokja1/insert_kader1.php',
         data: {
+          'id_user': id_user,
           'PKBN': PKBN,
           'PKDRT': PKDRT,
           'pola_asuh': pola_asuh,
-          'role': role,
-          'role_bidang': role_bidang,
-          'id_user': id_user,
+          'id_role': id_role,
+          'id_organization': id_organization,
         }
       );
-      // var response = await http.post(
-      //   // url,
-      //   body: {
-      //     'PKBN': PKBN,
-      //     'PKDRT': PKDRT,
-      //     'pola_asuh': pola_asuh,
-      //     'role': role,
-      //     'role_bidang': role_bidang,
-      //     'id_user': id_user,
-      //   },
-      // ).timeout(const Duration(seconds: 10)); // Tambahkan timeout
 
       if (response.statusCode == 200) {
-        var body = json.decode(response.data);
+        var body = response.data;
         print('Response body: $body');
 
         if (body is Map<String, dynamic>) {

@@ -1,7 +1,7 @@
-import 'package:e_pkk_nganjuk/get/controller/upload_report_controller.dart';
-import 'package:e_pkk_nganjuk/repositories/upload_report_repository.dart';
+import 'package:e_pkk_nganjuk/get/controller/kader_pokja1_controller.dart';
+import 'package:e_pkk_nganjuk/repositories/kader_pokja1_repository.dart';
 import 'package:e_pkk_nganjuk/services/api/dio_client.dart';
-import 'package:e_pkk_nganjuk/usecases/upload_report_usecase.dart';
+import 'package:e_pkk_nganjuk/usecases/kader_pokja1_usecase.dart';
 import 'package:get/get.dart';
 
 class UploadReportBinding extends Bindings {
@@ -10,8 +10,7 @@ class UploadReportBinding extends Bindings {
     final dioClient = DioClient();
     final repository = UploadReportRepository(apiHelper: dioClient.apiHelper);
     
-    final createReportKaderPokja1 =
-        CreateKaderPokja1Usecase(repository: repository);
+    final createReportKaderPokja1 = CreateKaderPokja1Usecase(repository: repository);
 
     Get.put(UploadReportController(
       createKaderPokja1Usecase: createReportKaderPokja1,

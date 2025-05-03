@@ -148,7 +148,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                             'Gagal Login',
                                             authController.errorMessage.value,
                                             snackPosition: SnackPosition.TOP,
-                                            backgroundColor: Colors.red,
+                                            backgroundColor : Colors.red,
                                             colorText: Colors.white,
                                           );
                                         }
@@ -172,7 +172,10 @@ class _AuthScreenState extends State<AuthScreen> {
           firstText: 'Belum punya akun?',
           secondText: 'Daftar',
           onTab: () {
-            Get.toNamed(Routes.REGISTER, arguments: {'roleID': roleId, 'roleName': roleName});
+            Get.toNamed(Routes.REGISTER, arguments: {
+              'roleID': roleId, 
+              'roleName': roleName
+              });
           },
         ),
       ),

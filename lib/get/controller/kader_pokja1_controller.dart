@@ -1,5 +1,5 @@
 import 'package:e_pkk_nganjuk/features/home/data/model/report_kader_pokja1_model.dart';
-import 'package:e_pkk_nganjuk/usecases/upload_report_usecase.dart';
+import 'package:e_pkk_nganjuk/usecases/kader_pokja1_usecase.dart';
 import 'package:get/get.dart';
 
 class UploadReportController extends GetxController {
@@ -12,26 +12,26 @@ class UploadReportController extends GetxController {
   UploadReportController({required this.createKaderPokja1Usecase});
 
   Future<void> createKaderPokja1Controller({
+    required String id_user,
     required String PKBN,
     required String PKDRT,
     required String pola_asuh,
-    required String role,
-    required String role_bidang,
-    required String id_user,
+    required String id_role,
+    required String id_organization,
   }) async {
     isCreateKaderPokja1.value = true;
     errorMessage.value = '';
     try {
       final response = await createKaderPokja1Usecase.execute(
+        id_user: id_user,
         PKBN: PKBN,
         PKDRT: PKDRT,
         pola_asuh: pola_asuh,
-        role: role,
-        role_bidang: role_bidang,
-        id_user: id_user,
+        id_role: id_role,
+        id_organization: id_organization,
       );
 
-      if (response.kode == 1) {
+      if (response.statusCode == 200) {
         reportKaderPokja1Model.value = response;
         print('Success Create Report: ${response.message}');
       } else {
