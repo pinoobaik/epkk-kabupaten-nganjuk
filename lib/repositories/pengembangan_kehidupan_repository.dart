@@ -26,7 +26,7 @@ class PengembanganKehidupanRepository {
   }) async {
     try {
       final response = await apiHelper.post(
-        '/report/pengembangan-kehidupan/submit_data.php',
+        '/report/pengembangan-kehidupan/insert_pengembangan_kehidupan.php',
         data: {
           'id_user': idUser,
           'jumlah_kelompok_pemula': jumlahKelompokPemula,

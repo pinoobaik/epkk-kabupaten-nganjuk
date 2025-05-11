@@ -24,7 +24,7 @@ class PenghayatanPengamalanRepository {
   }) async {
     try {
       final response = await apiHelper.post(
-        '/report/penghayatan-pengamalan/insert_data.php',
+        '/report/penghayatan-pengamalan/insert_penghayatan.php',
         data: {
           'id_user': idUser,
           'jumlah_kel_simulasi1': jumlahKelSimulasi1,

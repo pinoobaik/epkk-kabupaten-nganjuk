@@ -19,7 +19,7 @@ class SandangRepository {
   }) async {
     try {
       final response = await apiHelper.post(
-        '/report/sandang/insert_data.php',
+        '/report/sandang/insert_sandang.php',
         data: {
           'id_user': idUser,
           'pangan': pangan,

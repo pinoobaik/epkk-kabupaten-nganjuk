@@ -26,7 +26,7 @@ class KesehatanRepository {
           'id_user': id_user,
           'jumlah_posyandu': jumlah_posyandu,
           'jumlah_posyandu_iterasi': jumlah_posyandu_iterasi,
-          'jumlah_kip': jumlah_kip,
+          'jumlah_klp': jumlah_kip,
           'jumlah_anggota': jumlah_anggota,
           'jumlah_kartu_gratis': jumlah_kartu_gratis,
           'id_role': id_role,

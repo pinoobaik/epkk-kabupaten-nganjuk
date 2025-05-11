@@ -10,11 +10,9 @@ class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onTab2;
   final Color? backgroundColor;
   final double? elevation;
-  final bool showBottomBorder;
-  
+  final bool showBottomBorder; 
   final int? currentStep; // <--- TAMBAH
   final int? totalSteps;
-  
   final bool centerTitle;  // <--- TAMBAH
 
 
@@ -121,8 +119,8 @@ class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                           bool isActive = index < currentStep!;
                           return Expanded(
                             child: Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 2),
-                              height: 6,
+                              margin: const EdgeInsets.symmetric(horizontal: 3),
+                              height: 8,
                               decoration: BoxDecoration(
                                 color: isActive ? Colors.blue : Colors.grey.shade300,
                                 borderRadius: BorderRadius.circular(4),

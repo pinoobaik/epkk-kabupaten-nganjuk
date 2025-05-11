@@ -18,7 +18,7 @@ class PerumahanRepository {
   }) async {
     try {
       final response = await apiHelper.post(
-        '/report/perumahan/insert_data.php',
+        '/report/perumahan/insert_perumahan.php',
         data: {
           'id_user': idUser,
           'layak_huni': layakHuni,

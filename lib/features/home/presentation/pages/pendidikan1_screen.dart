@@ -1,10 +1,13 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:e_pkk_nganjuk/_core/component/appbar/custome_appbar.dart';
 import 'package:e_pkk_nganjuk/_core/component/button/button_fill.dart';
 import 'package:e_pkk_nganjuk/_core/component/form/input_form_field.dart';
 import 'package:e_pkk_nganjuk/_core/utils/validators/validator_form.dart';
 import 'package:e_pkk_nganjuk/commons/constants/colors.dart';
 import 'package:e_pkk_nganjuk/commons/constants/typography.dart';
-import 'package:e_pkk_nganjuk/get/controller/laporan_umum_controller.dart';
+import 'package:e_pkk_nganjuk/get/controller/pendidikan_keterampilan_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
@@ -12,14 +15,14 @@ import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import 'package:get/get.dart';
 import '../../../../routes/app_routes.dart';
 
-class LaporanUmum1Screen extends StatefulWidget {
-  const LaporanUmum1Screen({super.key});
+class Pendidikan1Screen extends StatefulWidget {
+  const Pendidikan1Screen({super.key});
 
   @override
-  State<LaporanUmum1Screen> createState() => _LaporanUmum1ScreenState();
+  State<Pendidikan1Screen> createState() => _Pendidikan1ScreenState();
 }
 
-class _LaporanUmum1ScreenState extends State<LaporanUmum1Screen> {
+class _Pendidikan1ScreenState extends State<Pendidikan1Screen> {
   String? id_user;
   String? id_role;
   String? id_organization;
@@ -27,20 +30,20 @@ class _LaporanUmum1ScreenState extends State<LaporanUmum1Screen> {
   String? name_role;
   String? name_organization;
 
-  final dusunController = TextEditingController();
-  final pkkrwController = TextEditingController();
-  final desawismaController = TextEditingController();
-  final krtController = TextEditingController();
-  final kkController = TextEditingController();
+  final jumlahButaController = TextEditingController();
+  final kelBelajarAController = TextEditingController();
+  final wargaBelajarAController = TextEditingController();
+  final kelBelajarBController = TextEditingController();
+  final wargaBelajarBController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final LaporanUmumController uploadController = Get.find<LaporanUmumController>();
+  final PendidikanKeterampilanController uploadController = Get.find<PendidikanKeterampilanController>();
 
   void clearForm() {
-    dusunController.clear();
-    pkkrwController.clear();
-    desawismaController.clear();
-    krtController.clear();
-    kkController.clear();
+    jumlahButaController.clear();
+    kelBelajarAController.clear();
+    wargaBelajarAController.clear();
+    kelBelajarBController.clear();
+    wargaBelajarBController.clear();
   }
 
   @override
@@ -66,9 +69,9 @@ class _LaporanUmum1ScreenState extends State<LaporanUmum1Screen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarSecondary(
-        title: 'Laporan Umum',
+        title: 'Pendidikan & Ketrampilan',
         currentStep: 1,
-        totalSteps: 4,
+        totalSteps: 5,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -80,52 +83,59 @@ class _LaporanUmum1ScreenState extends State<LaporanUmum1Screen> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: TypographyStyles.bodyCaptionBold(
-                    'Jumlah Kelompok',
+                    'Jumlah Kelompok Belajar',
                     color: TextColors.grey700,
                   ),
                 ),
-                SizedBox(height: 24.h),
+                SizedBox(height: 12.h),
                 InputFormField(
-                  controller: dusunController,
+                  controller: jumlahButaController,
                   hintText: 'Masukkan jumlah',
-                label: 'Dusun/Lingkungan',
-                validator: (value) => ValidatorForm.validateDefault(value),
-                ),
-                SizedBox(height: 24.h),
-                InputFormField(
-                  controller: pkkrwController,
-                  hintText: 'Masukkan jumlah',
-                  label: 'PKK RW',
+                  label: 'Jumlah warga yang masih buta',
                   validator: (value) => ValidatorForm.validateDefault(value),
                 ),
                 SizedBox(height: 24.h),
-                InputFormField(
-                  controller: desawismaController,
-                  hintText: 'Masukkan jumlah',
-                  label: 'Desa Wisma',
-                  validator: (value) => ValidatorForm.validateDefault(value),
-                ),
-
-                SizedBox(height: 48.h),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: TypographyStyles.bodyCaptionBold(
-                    'Jumlah',
+                    'Paket A',
                     color: TextColors.grey700,
                   ),
                 ),
-                SizedBox(height: 24.h),
+                SizedBox(height: 12.h),
                 InputFormField(
-                  controller: krtController,
+                  controller: kelBelajarAController,
                   hintText: 'Masukkan jumlah',
-                  label: 'KRT',
+                  label: 'Kel. Belajar',
                   validator: (value) => ValidatorForm.validateDefault(value),
                 ),
                 SizedBox(height: 24.h),
                 InputFormField(
-                  controller: kkController,
+                  controller: wargaBelajarAController,
                   hintText: 'Masukkan jumlah',
-                  label: 'KK',
+                  label: 'Warga Belajar',
+                  validator: (value) => ValidatorForm.validateDefault(value),
+                ),
+                SizedBox(height: 24.h),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: TypographyStyles.bodyCaptionBold(
+                    'Paket B',
+                    color: TextColors.grey700,
+                  ),
+                ),
+                SizedBox(height: 12.h),
+                InputFormField(
+                  controller: kelBelajarBController,
+                  hintText: 'Masukkan jumlah',
+                  label: 'Kel. Belajar',
+                  validator: (value) => ValidatorForm.validateDefault(value),
+                ),
+                SizedBox(height: 24.h),
+                InputFormField(
+                  controller: wargaBelajarBController,
+                  hintText: 'Masukkan jumlah',
+                  label: 'Warga Belajar',
                   validator: (value) => ValidatorForm.validateDefault(value),
                 ),
               ],
@@ -147,18 +157,18 @@ class _LaporanUmum1ScreenState extends State<LaporanUmum1Screen> {
 
               if (_formKey.currentState!.validate()) {
                 
-                Get.toNamed(Routes.LAPORAN_UMUM2, arguments: {
+                Get.toNamed(Routes.PENDIDIKAN2, arguments: {
                 'id_user': id_user,
                 'full_name': full_name,
                 'id_role': id_role,
                 'name_role': name_role,
                 'id_organization': id_organization,
                 'name_organization': name_organization,
-                'dusun_lingkungan': dusunController.text,
-                'PKK_RW': pkkrwController.text,
-                'desa_wisma': desawismaController.text,
-                'KRT': krtController.text,
-                'KK': kkController.text,
+                'warga_buta': jumlahButaController.text,
+                'kel_belajarA': kelBelajarAController.text,
+                'warga_belajarA': wargaBelajarAController.text,
+                'kel_belajarB': kelBelajarBController.text,
+                'warga_belajarB': wargaBelajarBController.text
                   }
                 );
               } else {
@@ -174,19 +184,10 @@ class _LaporanUmum1ScreenState extends State<LaporanUmum1Screen> {
               }
             ),
           ),
-          // child: ButtonFill(
-          //   text: 'Lanjut',
-          //   textColor: Colors.white,
-          //   onPressed: () {
-          //     Get.toNamed(Routes.LAPORAN_UMUM2, arguments: {
-          //               // 'role': role,
-          //               // 'role_bidang': roleBidang,
-          //             });
-          //   },
-          // ),
         ),
       ),
     );
   }
 }
+
 

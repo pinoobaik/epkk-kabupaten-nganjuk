@@ -1,13 +1,16 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:e_pkk_nganjuk/_core/component/appbar/custome_appbar.dart';
 import 'package:e_pkk_nganjuk/_core/component/button/button_fill.dart';
 import 'package:e_pkk_nganjuk/_core/component/form/input_form_field.dart';
 import 'package:e_pkk_nganjuk/_core/utils/validators/validator_form.dart';
 import 'package:e_pkk_nganjuk/commons/constants/colors.dart';
 import 'package:e_pkk_nganjuk/commons/constants/typography.dart';
+import 'package:e_pkk_nganjuk/get/controller/penghayatan_pengamalan_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class PenghayatanPengamalanScreen extends StatefulWidget {
@@ -34,6 +37,7 @@ class _PenghayatanPengamalanScreenState extends State<PenghayatanPengamalanScree
   final jumlahkel4Controller = TextEditingController();
   final jumlahanggota4Controller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final PenghayatanPengamalanController penghayatanPengamalanController = Get.find<PenghayatanPengamalanController>();
 
   void clearForm() {
     jumlahkel1Controller.clear();
@@ -171,10 +175,95 @@ class _PenghayatanPengamalanScreenState extends State<PenghayatanPengamalanScree
       bottomNavigationBar: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         child: ZoomTapAnimation(
-          child: ButtonFill(
-            text: 'UPLOAD',
-            textColor: Colors.white,
-            onPressed: () {},
+          child: Obx(
+            () => ButtonFill(
+              text: penghayatanPengamalanController.isLoading.value
+              ? 'Loading'
+              : 'UPLOAD',
+              textColor: Colors.white,
+              onPressed: penghayatanPengamalanController.isLoading.value
+              ? null
+              : () async {
+                final isFormValid = _formKey.currentState!.validate();
+
+                if (isFormValid) {
+                  try {
+                    await penghayatanPengamalanController.submitPenghayatanPengamalan(
+                      idUser: id_user!, 
+                      jumlahKelSimulasi1: jumlahkel1Controller.text, 
+                      jumlahAnggota1: jumlahanggota1Controller.text, 
+                      jumlahKelSimulasi2: jumlahkel2Controller.text, 
+                      jumlahAnggota2: jumlahanggota2Controller.text, 
+                      jumlahKelSimulasi3: jumlahkel3Controller.text, 
+                      jumlahAnggota3: jumlahanggota3Controller.text, 
+                      jumlahKelSimulasi4: jumlahkel4Controller.text, 
+                      jumlahAnggota4: jumlahanggota4Controller.text, 
+                      idRole: id_role!, 
+                      idOrganization: id_organization!
+                      );
+
+                    if (penghayatanPengamalanController.reportData.value != null 
+                        &&
+                        penghayatanPengamalanController.reportData.value!.statusCode == 200
+                        ) {
+                      Get.snackbar(
+                        'Berhasil',
+                        'Laporan berhasil diupload!',
+                        snackPosition: SnackPosition.TOP,
+                        backgroundColor: Colors.green,
+                        colorText: Colors.white,
+                      );
+                      _formKey.currentState?.reset();
+                      clearForm();
+                    } else {
+                      String errorMessage = penghayatanPengamalanController.errorMessage.value.isNotEmpty
+                          ? penghayatanPengamalanController.errorMessage.value
+                          : 'Terjadi kesalahan, silakan coba lagi.';
+
+                      Get.snackbar(
+                        'Error',
+                        errorMessage,
+                        snackPosition: SnackPosition.TOP,
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white,
+                      );
+                    } 
+                  } on SocketException {
+                    Get.snackbar(
+                      'Error',
+                      'Tidak ada koneksi internet. Silakan periksa koneksi Anda.',
+                      snackPosition: SnackPosition.TOP,
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                    );
+                  } on TimeoutException {
+                    Get.snackbar(
+                      'Error',
+                      'Server tidak merespons, coba lagi nanti.',
+                      snackPosition: SnackPosition.TOP,
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                    );
+                  } catch (e) {
+                    Get.snackbar(
+                      'Error',
+                      'Terjadi kesalahan yang tidak diketahui.',
+                      snackPosition: SnackPosition.TOP,
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                    );
+                  }
+                } else {
+                  Get.snackbar(
+                    'Error',
+                    'Form tidak valid! Mohon periksa kembali input Anda.',
+                    snackPosition: SnackPosition.TOP,
+                    backgroundColor: Colors.orange,
+                    colorText: Colors.white,
+                  );   
+                }
+              }, 
+            )  
           ),
         ),
       ),

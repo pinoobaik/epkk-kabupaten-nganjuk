@@ -21,7 +21,7 @@ class GotongRoyongRepository {
   }) async {
     try {
       final response = await apiHelper.post(
-        '/report/gotong-royong/insert_data.php',
+        '/report/gotong-royong/insert_gotong_royong.php',
         data: {
           'id_user': idUser,
           'kerja_bakti': kerjaBakti,

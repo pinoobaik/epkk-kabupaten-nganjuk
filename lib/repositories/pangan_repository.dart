@@ -24,7 +24,7 @@ class PanganRepository {
   }) async {
     try {
       final response = await apiHelper.post(
-        '/report/pangan/insert_data.php',
+        '/report/pangan/insert_pangan.php',
         data: {
           'id_user': idUser,
           'beras': beras,

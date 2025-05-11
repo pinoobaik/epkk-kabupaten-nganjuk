@@ -1,6 +1,7 @@
 import 'package:e_pkk_nganjuk/_core/component/button/card_button_actions.dart';
 import 'package:e_pkk_nganjuk/commons/constants/colors.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/components/card_pengumuman.dart';
+import 'package:e_pkk_nganjuk/features/home/presentation/components/grid_button.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/components/widget_carousel_banner.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/components/widget_text_pengumuman.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +21,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late String id_user;
-  late String id_role;
+  String? id_role;
   late String role;
   String? id_organization;
   String? roleBidang;
-  String? fullName = "User fullname tidak diketui";
+  String? fullName = "User fullname tidak diketahui";
 
   @override
   void initState() {
@@ -64,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
             HeaderHome(
               textUser: fullName ?? 'User fullname tidak diketahui',
             ),
+            //if (id_role == "2") GridButtons(),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -72,7 +74,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 20.h),
-                      WidgetCarouselBanner(),
+                      if (id_role != null && id_role == "1") ...[
+                        WidgetCarouselBanner(),
+                      ] else ...[
+                        GridButtons(),
+                      ],
+                      // WidgetCarouselBanner(),
                       SizedBox(height: 32.h),
                       if (roleBidang == 'Laporan Umum') ...[
                         CardButtonActions(
@@ -118,7 +125,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         titleText: 'Upload Galeri',
                         subTitle: 'upload galeri kegiatan PKK disini',
                         imageAssets: 'assets/images/ic_gallery.png',
-                        onTab: () {},
+                        onTab: () {
+                          Get.toNamed(Routes.UPLOAD_GALERI, arguments: {
+                            // 'id_user': id_user,
+                            // 'full_name': fullName,
+                            // 'id_role': id_role,
+                            // 'name_role': role,
+                            // 'id_organization': id_organization,
+                            // 'name_organization': roleBidang,
+                          });
+                        },
                       ),
                       SizedBox(height: 32.h),
                       WidgetTextPengumuman(
@@ -144,6 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         },
                       ),
+                    
                     ],
                   ),
                 ),

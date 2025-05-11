@@ -19,7 +19,7 @@ class KaderPokja3Repository {
   }) async {
     try {
       final response = await apiHelper.post(
-        '/report/kader-pokja3/insert_data.php',
+        '/report/kader-pokja3/insert_kader_pokja3.php',
         data: {
           'id_user': idUser,
           'pangan': pangan,

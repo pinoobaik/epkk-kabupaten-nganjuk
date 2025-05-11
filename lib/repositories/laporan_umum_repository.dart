@@ -33,7 +33,7 @@ class UmumRepository {
   }) async {
     try {
       final response = await apiHelper.post(
-        '/report/umum/insert_umum.php',
+        '/report/laporan-umum/insert_laporan_umum.php',
         data: {
           'id_user': id_user,
           'dusun_lingkungan': dusun_lingkungan,

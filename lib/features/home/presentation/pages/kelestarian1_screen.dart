@@ -1,46 +1,43 @@
+import 'package:e_pkk_nganjuk/_core/utils/validators/validator_form.dart';
+import 'package:e_pkk_nganjuk/get/controller/kelestarian_controller.dart';
+import 'package:e_pkk_nganjuk/routes/app_routes.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:e_pkk_nganjuk/_core/component/appbar/custome_appbar.dart';
 import 'package:e_pkk_nganjuk/_core/component/button/button_fill.dart';
 import 'package:e_pkk_nganjuk/_core/component/form/input_form_field.dart';
-import 'package:e_pkk_nganjuk/_core/utils/validators/validator_form.dart';
 import 'package:e_pkk_nganjuk/commons/constants/colors.dart';
 import 'package:e_pkk_nganjuk/commons/constants/typography.dart';
-import 'package:e_pkk_nganjuk/get/controller/laporan_umum_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-import 'package:get/get.dart';
-import '../../../../routes/app_routes.dart';
-
-class LaporanUmum1Screen extends StatefulWidget {
-  const LaporanUmum1Screen({super.key});
+class KelestarianLingkungan1Screen extends StatefulWidget {
+  const KelestarianLingkungan1Screen({super.key});
 
   @override
-  State<LaporanUmum1Screen> createState() => _LaporanUmum1ScreenState();
+  State<KelestarianLingkungan1Screen> createState() => _Kelestarian1ScreenState();
 }
 
-class _LaporanUmum1ScreenState extends State<LaporanUmum1Screen> {
+class _Kelestarian1ScreenState extends State<KelestarianLingkungan1Screen> {
   String? id_user;
   String? id_role;
   String? id_organization;
   String? full_name;
   String? name_role;
   String? name_organization;
-
-  final dusunController = TextEditingController();
-  final pkkrwController = TextEditingController();
-  final desawismaController = TextEditingController();
-  final krtController = TextEditingController();
-  final kkController = TextEditingController();
+  
+  final jambanController = TextEditingController();
+  final spalController = TextEditingController();
+  final sampahController = TextEditingController();
+  final mckController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final LaporanUmumController uploadController = Get.find<LaporanUmumController>();
+  final KelestarianController uploadController = Get.find<KelestarianController>();
 
   void clearForm() {
-    dusunController.clear();
-    pkkrwController.clear();
-    desawismaController.clear();
-    krtController.clear();
-    kkController.clear();
+    jambanController.clear();
+    spalController.clear();
+    sampahController.clear();
+    mckController.clear();
   }
 
   @override
@@ -60,15 +57,15 @@ class _LaporanUmum1ScreenState extends State<LaporanUmum1Screen> {
 
   @override
   Widget build(BuildContext context) {
-    // hanya tampilan
+    
     print('Role Upload Laporan: $name_role + $name_organization');
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarSecondary(
-        title: 'Laporan Umum',
+        title: 'Kelestarian Lingkungan Hidup',
         currentStep: 1,
-        totalSteps: 4,
+        totalSteps: 3,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -76,61 +73,60 @@ class _LaporanUmum1ScreenState extends State<LaporanUmum1Screen> {
           child: Form(
             key: _formKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: TypographyStyles.bodyCaptionBold(
-                    'Jumlah Kelompok',
-                    color: TextColors.grey700,
-                  ),
+                // Step Progress Indicator
+                // Row(
+                //   children: List.generate(3, (index) {
+                //     return Expanded(
+                //       child: Container(
+                //         height: 4.h,
+                //         margin: EdgeInsets.only(right: index < 2 ? 4.w : 0),
+                //         decoration: BoxDecoration(
+                //           color: index == 0 ? Colors.blue : Colors.grey[300],
+                //           borderRadius: BorderRadius.circular(4.r),
+                //         ),
+                //       ),
+                //     );
+                //   }),
+                // ),
+                SizedBox(height: 32.h),
+                TypographyStyles.bodyCaptionSemiBold(
+                  'Jumlah Rumah yang Memiliki',
+                  color: TextColors.grey900,
                 ),
-                SizedBox(height: 24.h),
+                SizedBox(height: 12.h),
                 InputFormField(
-                  controller: dusunController,
+                  controller: jambanController,
                   hintText: 'Masukkan jumlah',
-                label: 'Dusun/Lingkungan',
-                validator: (value) => ValidatorForm.validateDefault(value),
-                ),
-                SizedBox(height: 24.h),
-                InputFormField(
-                  controller: pkkrwController,
-                  hintText: 'Masukkan jumlah',
-                  label: 'PKK RW',
+                  label: 'Jamban',
                   validator: (value) => ValidatorForm.validateDefault(value),
                 ),
-                SizedBox(height: 24.h),
+                SizedBox(height: 20.h),
                 InputFormField(
-                  controller: desawismaController,
+                  controller: spalController,
                   hintText: 'Masukkan jumlah',
-                  label: 'Desa Wisma',
+                  label: 'SPAL',
                   validator: (value) => ValidatorForm.validateDefault(value),
                 ),
-
-                SizedBox(height: 48.h),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: TypographyStyles.bodyCaptionBold(
-                    'Jumlah',
-                    color: TextColors.grey700,
-                  ),
-                ),
-                SizedBox(height: 24.h),
+                SizedBox(height: 20.h),
                 InputFormField(
-                  controller: krtController,
+                  controller: sampahController,
                   hintText: 'Masukkan jumlah',
-                  label: 'KRT',
+                  label: 'Tempat Pembuangan Sampah',
                   validator: (value) => ValidatorForm.validateDefault(value),
                 ),
-                SizedBox(height: 24.h),
+                SizedBox(height: 20.h),
                 InputFormField(
-                  controller: kkController,
+                  controller: mckController,
                   hintText: 'Masukkan jumlah',
-                  label: 'KK',
+                  label: 'Jumlah MCK',
                   validator: (value) => ValidatorForm.validateDefault(value),
                 ),
               ],
             ),
-          ),
+          )
+          
         ),
       ),
       bottomNavigationBar: Padding(
@@ -147,18 +143,18 @@ class _LaporanUmum1ScreenState extends State<LaporanUmum1Screen> {
 
               if (_formKey.currentState!.validate()) {
                 
-                Get.toNamed(Routes.LAPORAN_UMUM2, arguments: {
+                Get.toNamed(Routes.KELESTARIAN2, arguments: {
                 'id_user': id_user,
                 'full_name': full_name,
                 'id_role': id_role,
                 'name_role': name_role,
                 'id_organization': id_organization,
                 'name_organization': name_organization,
-                'dusun_lingkungan': dusunController.text,
-                'PKK_RW': pkkrwController.text,
-                'desa_wisma': desawismaController.text,
-                'KRT': krtController.text,
-                'KK': kkController.text,
+                'jamban': jambanController.text,
+                'spal': spalController.text,
+                'tps': sampahController.text,
+                'mck': mckController.text,
+
                   }
                 );
               } else {
@@ -178,10 +174,12 @@ class _LaporanUmum1ScreenState extends State<LaporanUmum1Screen> {
           //   text: 'Lanjut',
           //   textColor: Colors.white,
           //   onPressed: () {
-          //     Get.toNamed(Routes.LAPORAN_UMUM2, arguments: {
-          //               // 'role': role,
-          //               // 'role_bidang': roleBidang,
-          //             });
+          //     Get.toNamed('/kelestarian2', arguments: {
+          //       'jamban': jambanController.text,
+          //       'spal': spalController.text,
+          //       'tempat_pembuangan_sampah': sampahController.text,
+          //       'jumlah_mck': mckController.text,
+          //     });
           //   },
           // ),
         ),
@@ -189,4 +187,3 @@ class _LaporanUmum1ScreenState extends State<LaporanUmum1Screen> {
     );
   }
 }
-

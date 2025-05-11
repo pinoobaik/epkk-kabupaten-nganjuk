@@ -82,6 +82,12 @@ class UploadLaporan extends StatelessWidget {
                     subTitle: 'Klik untuk melanjutkan',
                     onTab: () {
                       Get.toNamed(Routes.GOTONG_ROYONG, arguments: {
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
                         // 'role': role,
                         // 'role_bidang': roleBidang,
                       });
@@ -101,9 +107,20 @@ class UploadLaporan extends StatelessWidget {
                   CardButtonActions(
                     backroundColor: Color(0xFFFFF4C6),
                     strokeColor: Color(0xFFFFE990),
-                    titleText: 'Pendidikan Keterampilan',
+                    titleText: 'Pendidikan Ketrampilan',
                     subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
+                    onTab: () {
+                      Get.toNamed(Routes.PENDIDIKAN1, arguments: {
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
+                        // 'role': role,
+                        // 'role_bidang': roleBidang,
+                      });
+                    },
                     imageAssets: 'assets/images/ic_pendidikan_keterampilan.png',
                   ),
                   SizedBox(height: 16.h),
@@ -112,7 +129,18 @@ class UploadLaporan extends StatelessWidget {
                     strokeColor: Color(0xFFFFFDAAA),
                     titleText: 'Pengembangan Kehidupan Berkoperasi',
                     subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
+                    onTab: () {
+                      Get.toNamed(Routes.PENGEMBANGAN1, arguments: {
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
+                        // 'role': role,
+                        // 'role_bidang': roleBidang,
+                      });
+                    },
                     imageAssets: 'assets/images/ic_pengembangan_kehidupan_berkoperasi.png',
                   ),
                 ] else if (roleBidang == 'Kader Pokja III') ...[
@@ -121,7 +149,16 @@ class UploadLaporan extends StatelessWidget {
                     strokeColor: Color(0xFFFFE990),
                     titleText: 'Kader Pokja III',
                     subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
+                    onTab: () {
+                      Get.toNamed(Routes.KADER_POKJA3, arguments: {
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
+                      });
+                    },
                     imageAssets: 'assets/images/ic_organisasi.png',
                   ),
                   SizedBox(height: 16.h),
@@ -130,7 +167,16 @@ class UploadLaporan extends StatelessWidget {
                     strokeColor: Color(0xFFFFE990),
                     titleText: 'Pangan',
                     subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
+                    onTab: () {
+                      Get.toNamed(Routes.PANGAN1, arguments: {
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
+                      });
+                    },
                     imageAssets: 'assets/images/ic_garuda.png',
                   ),
                   SizedBox(height: 16.h),
@@ -139,7 +185,16 @@ class UploadLaporan extends StatelessWidget {
                     strokeColor: Color(0xFFFFFDAAA),
                     titleText: 'Sandang',
                     subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
+                    onTab: () {
+                      Get.toNamed(Routes.SANDANG, arguments: {
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
+                      });
+                    },
                     imageAssets: 'assets/images/ic_gotong_royong.png',
                   ),
                   SizedBox(height: 16.h),
@@ -148,7 +203,16 @@ class UploadLaporan extends StatelessWidget {
                     strokeColor: Color(0xFFFFFDAAA),
                     titleText: 'Perumahan & Tata Laksana Rumah Tangga',
                     subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
+                    onTab: () {
+                      Get.toNamed(Routes.PERUMAHAN, arguments: {
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
+                      });
+                    },
                     imageAssets: 'assets/images/ic_gotong_royong.png',
                   ),
                 ] else if (roleBidang == 'Kader Pokja IV') ...[
@@ -157,7 +221,16 @@ class UploadLaporan extends StatelessWidget {
                     strokeColor: Color(0xFFFFE990),
                     titleText: 'Kader Pokja IV',
                     subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
+                    onTab: () {
+                      Get.toNamed(Routes.KADER_POKJA4, arguments: {
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
+                      });
+                    },
                     imageAssets: 'assets/images/ic_organisasi.png',
                   ),
                   SizedBox(height: 16.h),
@@ -166,7 +239,16 @@ class UploadLaporan extends StatelessWidget {
                     strokeColor: Color(0xFFFFE990),
                     titleText: 'Kesehatan',
                     subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
+                    onTab: () {
+                      Get.toNamed(Routes.KESEHATAN, arguments: {
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
+                      });
+                    },
                     imageAssets: 'assets/images/ic_garuda.png',
                   ),
                   SizedBox(height: 16.h),
@@ -175,7 +257,16 @@ class UploadLaporan extends StatelessWidget {
                     strokeColor: Color(0xFFFFFDAAA),
                     titleText: 'Kelestarian Lingkungan Hidup',
                     subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
+                    onTab: () {
+                      Get.toNamed(Routes.KELESTARIAN1, arguments: {
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
+                      });
+                    },
                     imageAssets: 'assets/images/ic_gotong_royong.png',
                   ),
                   SizedBox(height: 16.h),
@@ -184,7 +275,16 @@ class UploadLaporan extends StatelessWidget {
                     strokeColor: Color(0xFFFFFDAAA),
                     titleText: 'Perencanaan Sehat',
                     subTitle: 'Klik untuk melanjutkan',
-                    onTab: () {},
+                    onTab: () {
+                      Get.toNamed(Routes.PERENCANAAN, arguments: {
+                        'id_user': id_user,
+                        'full_name': full_name,
+                        'id_role': id_role,
+                        'name_role': role,
+                        'id_organization': id_organization,
+                        'name_organization': roleBidang,
+                      });
+                    },
                     imageAssets: 'assets/images/ic_gotong_royong.png',
                   ),
                 ] 

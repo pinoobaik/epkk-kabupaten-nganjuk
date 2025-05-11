@@ -39,7 +39,7 @@ class PendidikanKeterampilanRepository {
   }) async {
     try {
       final response = await apiHelper.post(
-        '/report/pendidikan-keterampilan/submit_data.php',
+        '/report/pendidikan-keterampilan/insert_pendidikan_keterampilan.php',
         data: {
           'id_user': idUser,
           'warga_buta': wargaButa,
