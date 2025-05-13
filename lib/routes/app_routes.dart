@@ -28,6 +28,7 @@ import 'package:e_pkk_nganjuk/features/home/presentation/pages/sandang_screen.da
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/upload_galeri.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/upload_laporan.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/kader_pokja1_screen.dart';
+import 'package:e_pkk_nganjuk/get/binding/galeri_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/gotong_royong_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/kader_pokja1_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/kader_pokja3_binding.dart';
@@ -39,6 +40,7 @@ import 'package:e_pkk_nganjuk/get/binding/pangan_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/pendidikan_keterampilan_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/pengembangan_kehidupan_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/penghayatan_pengamalan_binding.dart';
+import 'package:e_pkk_nganjuk/get/binding/pengumuman_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/perencanaan_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/perumahan_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/sandang_binding.dart';
@@ -92,6 +94,7 @@ class AppRoutes {
     GetPage(
       name: Routes.HOME,
       page: () => HomeScreen(),
+      binding: PengumumanBinding(),
     ),
     GetPage(
       name: Routes.UPLOAD_LAPORAN,
@@ -100,6 +103,7 @@ class AppRoutes {
     GetPage(
       name: Routes.UPLOAD_GALERI,
       page: () => UploadGaleriPage(),
+      binding: GaleriBinding(),
     ),
     GetPage(
       name: Routes.KADER_POKJA1,

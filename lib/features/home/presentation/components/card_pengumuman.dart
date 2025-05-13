@@ -34,12 +34,12 @@ class CardPengumuman extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
-                Icons.south_east_outlined,
-                size: 24,
-                color: TextColors.grey500,
+                Icons.mark_email_unread,
+                size: 36,
+                color: TextColors.grey700,
               ),
               SizedBox(width: 16.w),
               Column(
@@ -51,13 +51,14 @@ class CardPengumuman extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxlines: 1,
                   ),
+                  SizedBox(height: 5.h),
                   TypographyStyles.bodyCaptionSmallReguler(
                     subTitle,
                     color: TextColors.grey600,
                     overflow: TextOverflow.ellipsis,
                     maxlines: 2,
                   ),
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 5.h),
                   TypographyStyles.bodyCaptionSmallSemiBold(
                     dateText,
                     color: BrandColors.brandPrimary500,

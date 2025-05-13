@@ -74,13 +74,4 @@ class KaderPokja4Controller extends GetxController {
       isLoading(false);
     }
   }
-
-  // // Clear form data
-  // void resetForm() {
-  //   reportData(null);
-  //   errorMessage('');
-  // }
-
-  // // Convenience getter for the entry data
-  // KaderPokja4Entry? get entryData => reportData.value?.data;
 }

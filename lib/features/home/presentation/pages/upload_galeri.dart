@@ -1,9 +1,10 @@
 import 'package:e_pkk_nganjuk/_core/component/appbar/custome_appbar.dart';
 import 'package:e_pkk_nganjuk/_core/component/button/button_fill.dart';
+import 'package:e_pkk_nganjuk/get/controller/galeri_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 
 class UploadGaleriPage extends StatefulWidget {
   const UploadGaleriPage({Key? key}) : super(key: key);
@@ -13,10 +14,42 @@ class UploadGaleriPage extends StatefulWidget {
 }
 
 class _UploadGaleriPageState extends State<UploadGaleriPage> {
+  final GaleriController _controller = Get.find<GaleriController>();
   final TextEditingController _namaKegiatanController = TextEditingController();
-  final TextEditingController _tanggalKegiatanController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   File? _image;
   final _picker = ImagePicker();
+  String? _selectedBidang;
+  List<String> _bidangList = [];
+
+  String? id_user;
+  String? id_role;
+  String? id_organization;
+  String? full_name;
+  String? name_role;
+  String? name_organization;
+
+  @override
+  void initState() {
+    super.initState();
+    final args = Get.arguments;
+    id_user = args['id_user'];
+    full_name = args['full_name'];
+    id_role = args['id_role'];
+    name_role = args['name_role'];
+    id_organization = args['id_organization'];
+    name_organization = args['name_organization'];
+
+    _initializeBidangList();
+  }
+
+  void _initializeBidangList() {
+    if (id_organization == '1') {
+      _bidangList = ['Pokja 1', 'Penghayatan', 'Gotong Royong'];
+    } else if (id_organization == '2') {
+      _bidangList = ['Pendidikan', 'Pengembangan'];
+    }
+  }
 
   Future<void> _pickImage(ImageSource source) async {
     try {
@@ -28,21 +61,7 @@ class _UploadGaleriPageState extends State<UploadGaleriPage> {
       }
     } catch (e) {
       debugPrint('Error picking image: $e');
-    }
-  }
-
-  Future<void> _selectDate() async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null) {
-      setState(() {
-        _tanggalKegiatanController.text = 
-            DateFormat('dd-MM-yyyy').format(picked);
-      });
+      Get.snackbar('Error', 'Gagal memilih gambar');
     }
   }
 
@@ -78,120 +97,121 @@ class _UploadGaleriPageState extends State<UploadGaleriPage> {
     );
   }
 
+  Future<void> _submitData() async {
+    if (!_formKey.currentState!.validate()) return;
+    if (_image == null) {
+      Get.snackbar('Error', 'Pilih gambar terlebih dahulu');
+      return;
+    }
+
+    try {
+      await _controller.submitDataGaleri(
+        idUser: id_user!,
+        deskripsi: _namaKegiatanController.text,
+        gambar: _image!.path,
+        pokja: name_organization!,
+        bidang: _selectedBidang!,
+        idRole: id_role!,
+        idOrganization: id_organization!,
+      );
+
+      if (_controller.galeriData.value != null) {
+        Get.snackbar('Sukses', 'Data berhasil diupload');
+        _resetForm();
+      }
+    } catch (e) {
+      Get.snackbar('Error', _controller.errorMessage.value);
+    }
+  }
+
+  void _resetForm() {
+    _namaKegiatanController.clear();
+    setState(() {
+      _image = null;
+      _selectedBidang = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarPrimary(
         title: 'Upload Galeri',
-        onBack: () => Navigator.pop(context),
+        onBack: () => Get.back(),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Image picker section
-            GestureDetector(
-              onTap: _showImageSourceDialog,
-              child: Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: _image != null
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.file(
-                          _image!,
-                          fit: BoxFit.cover,
-                        ),
-                      )
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.add_photo_alternate,
-                            size: 50,
-                            color: Colors.grey,
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            'Pilih Gambar',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            
-            // Nama Kegiatan input
-            TextField(
-              controller: _namaKegiatanController,
-              decoration: InputDecoration(
-                labelText: 'Nama Kegiatan',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                filled: true,
-                fillColor: Colors.grey[100],
-              ),
-            ),
-            const SizedBox(height: 16),
-            
-            // Tanggal Kegiatan input
-            GestureDetector(
-              onTap: _selectDate,
-              child: AbsorbPointer(
-                child: TextField(
-                  controller: _tanggalKegiatanController,
-                  decoration: InputDecoration(
-                    labelText: 'Tanggal Kegiatan',
-                    border: OutlineInputBorder(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                // Image Upload Section
+                GestureDetector(
+                  onTap: _showImageSourceDialog,
+                  child: Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    filled: true,
-                    fillColor: Colors.grey[100],
-                    suffixIcon: const Icon(Icons.calendar_today),
+                    child: _image != null
+                        ? Image.file(_image!, fit: BoxFit.cover)
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.add_a_photo, size: 50),
+                              Text('Tambahkan Foto'),
+                            ],
+                          ),
                   ),
                 ),
-              ),
+                const SizedBox(height: 20),
+
+                // Nama Kegiatan
+                TextFormField(
+                  controller: _namaKegiatanController,
+                  decoration: const InputDecoration(
+                    labelText: 'Nama Kegiatan',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) => value!.isEmpty 
+                      ? 'Harap isi nama kegiatan' 
+                      : null,
+                ),
+                const SizedBox(height: 20),
+
+                // Bidang Dropdown
+                DropdownButtonFormField<String>(
+                  value: _selectedBidang,
+                  decoration: const InputDecoration(
+                    labelText: 'Bidang',
+                    border: OutlineInputBorder(),
+                  ),
+                  items: _bidangList.map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (value) => setState(() => _selectedBidang = value),
+                  validator: (value) => value == null 
+                      ? 'Pilih bidang' 
+                      : null,
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+      
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ButtonFill(
-          text: 'Upload',
-          textColor: Colors.white,
-          onPressed: () {
-            // Implement your upload logic here
-            if (_image == null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Pilih gambar terlebih dahulu')),
-              );
-              return;
-            }
-            if (_namaKegiatanController.text.isEmpty) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Masukkan nama kegiatan')),
-              );
-              return;
-            }
-            if (_tanggalKegiatanController.text.isEmpty) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Pilih tanggal kegiatan')),
-              );
-              return;
-            }
-            // Proceed with upload
-          },
-        ),
+        padding: const EdgeInsets.all(16),
+        child: Obx(() {
+          return ButtonFill(
+            text: _controller.isLoading.value ? 'Mengunggah...' : 'Upload',
+            textColor: Colors.white,
+            onPressed: _controller.isLoading.value ? null : _submitData,
+          );
+        }),
       ),
     );
   }
@@ -199,7 +219,6 @@ class _UploadGaleriPageState extends State<UploadGaleriPage> {
   @override
   void dispose() {
     _namaKegiatanController.dispose();
-    _tanggalKegiatanController.dispose();
     super.dispose();
   }
 }

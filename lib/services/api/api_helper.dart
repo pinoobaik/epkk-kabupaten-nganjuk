@@ -36,4 +36,24 @@ class ApiHelper {
   Future<Response> delete(String endpoint, {dynamic data, Map<String, dynamic>? queryParameters}) async {
     return await _performRequest(() => _dio.delete(endpoint, data: data, queryParameters: queryParameters));
   }
+
+  Future<Response> postMultipart(
+    String endpoint, {
+    required Map<String, dynamic> data,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    // Konversi data ke FormData untuk multipart
+    final formData = FormData.fromMap(data);
+
+    return await _performRequest(
+      () => _dio.post(
+        endpoint,
+        data: formData,
+        queryParameters: queryParameters,
+        options: Options(
+          contentType: 'multipart/form-data', // Wajib untuk upload file
+        ),
+      ),
+    );
+  }
 }

@@ -4,9 +4,11 @@ import 'package:e_pkk_nganjuk/features/home/presentation/components/card_pengumu
 import 'package:e_pkk_nganjuk/features/home/presentation/components/grid_button.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/components/widget_carousel_banner.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/components/widget_text_pengumuman.dart';
+import 'package:e_pkk_nganjuk/get/controller/pengumuman_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../routes/app_routes.dart';
 import '../../../../services/preferences/preferences_service.dart';
@@ -27,12 +29,16 @@ class _HomeScreenState extends State<HomeScreen> {
   String? roleBidang;
   String? fullName = "User fullname tidak diketahui";
 
+  final PengumumanController pengumumanController = Get.find<PengumumanController>();
+
   @override
   void initState() {
     super.initState();
     // role = Get.arguments['role'] ?? 'Tidak diketahui';
     // print('Role Home: $role');
-    loadUserData();
+    loadUserData().then((_){
+      pengumumanController.loadPengumuman();
+    });
   }
 
   Future<void> loadUserData() async {
@@ -127,39 +133,56 @@ class _HomeScreenState extends State<HomeScreen> {
                         imageAssets: 'assets/images/ic_gallery.png',
                         onTab: () {
                           Get.toNamed(Routes.UPLOAD_GALERI, arguments: {
-                            // 'id_user': id_user,
-                            // 'full_name': fullName,
-                            // 'id_role': id_role,
-                            // 'name_role': role,
-                            // 'id_organization': id_organization,
-                            // 'name_organization': roleBidang,
+                            'id_user': id_user,
+                            'full_name': fullName,
+                            'id_role': id_role,
+                            'name_role': role,
+                            'id_organization': id_organization,
+                            'name_organization': roleBidang,
                           });
                         },
                       ),
                       SizedBox(height: 32.h),
-                      WidgetTextPengumuman(
-                        firstText: 'Pengumuman',
-                        secondText: 'Daftar pengumuman dari pusat',
-                        threeText: 'Lihat semua',
-                        svgIcon: 'assets/icons/ic_arrow_right.svg',
-                      ),
-                      SizedBox(height: 16.h),
-                      ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(bottom: 16.h),
-                            child: CardPengumuman(
-                              title: 'Kegiatan PKK di desa Bagor dal...',
-                              subTitle: 'upload galeri kegiatan PKK',
-                              dateText: '07-10-2024',
-                              onTab: () {},
-                            ),
-                          );
-                        },
-                      ),
+                      Obx((){
+                        if (pengumumanController.isLoading.value) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+
+                        if (pengumumanController.errorMessage.isNotEmpty) {
+                          return Text(pengumumanController.errorMessage.value);
+                        }
+
+                        return Column(
+                          children: [
+                              WidgetTextPengumuman(
+                          firstText: 'Pengumuman',
+                          secondText: 'Daftar pengumuman dari pusat',
+                          threeText: 'Lihat semua',
+                          svgIcon: 'assets/icons/ic_arrow_right.svg',
+                          ),
+                          SizedBox(height: 16.h),
+                          ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: pengumumanController.pengumumanList.length,
+                            itemBuilder: (context, index) {
+                              final pengumuman = pengumumanController.pengumumanList[index];
+                              return Padding(
+                                padding: EdgeInsets.only(bottom: 16.h),
+                                child: CardPengumuman(
+                                  title: pengumuman.judul,
+                                  subTitle: pengumuman.tempat,
+                                  dateText: DateFormat('dd-MM-yyyy').format(pengumuman.tanggal),
+                                  onTab: () {},
+                                ),
+                              );
+                            },
+                          ),
+                          ],
+                        );
+                      })
+                      
+                      
                     
                     ],
                   ),
