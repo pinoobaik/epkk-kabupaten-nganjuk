@@ -141,7 +141,7 @@ class AppBarSecondary extends CustomeAppBar {
   AppBarSecondary({
   required String title,
   VoidCallback? onBack,
-  
+  VoidCallback? onTab2,
   Color? backgroundColor,
   double? elevation,
   int? currentStep, // <--- TAMBAH
