@@ -140,8 +140,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                             backgroundColor: Colors.green,
                                             colorText: Colors.white,
                                           );
-                                          Get.toNamed(Routes.HOME, arguments: {
-                                            'role': authController.authResponse.value!.data!.role
+                                          Get.offAllNamed(Routes.MAIN, arguments: {
+                                            // 'role': authController.authResponse.value!.data!.role
                                           });
                                         } else {
                                           Get.snackbar(

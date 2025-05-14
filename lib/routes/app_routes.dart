@@ -45,6 +45,7 @@ import 'package:e_pkk_nganjuk/get/binding/perencanaan_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/perumahan_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/sandang_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/welcome_binding.dart';
+import 'package:e_pkk_nganjuk/main_screen.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
@@ -58,12 +59,18 @@ import '../get/binding/auth_binding.dart';
 
 class AppRoutes {
   static const INITIAL = Routes.SPLASH;
+  
 
   static final routes = [
     GetPage(
       name: Routes.SPLASH,
       page: () => SplashScreen(),
       binding: AuthBinding(),
+    ),
+    GetPage(
+      name: Routes.MAIN,
+      page: () => MainScreen(),
+      binding: PengumumanBinding(),
     ),
     GetPage(
       name: Routes.WELCOME,
@@ -249,6 +256,7 @@ class AppRoutes {
 
 class Routes {
   static const SPLASH = '/splash';
+  static const MAIN = '/main';
   static const WELCOME = '/welcome';
 
   static const AUTH_LOGIN = '/auth_login';

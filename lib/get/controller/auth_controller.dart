@@ -33,16 +33,18 @@ class AuthController extends GetxController {
     } else {
 
       // ini buat matiin sesi nanti dihapus kalo udah selesai
-      await PreferencesService.clearUserData();
-      Get.offAllNamed(Routes.WELCOME);
+      // await PreferencesService.clearUserData();
+      // Get.offAllNamed(Routes.WELCOME);
 
       // ini kode buat aktifkan sesinya lagi ya gess
-      // final user = await PreferencesService.getUser();
-      // if (user != null) {
-      //   Get.offAllNamed(Routes.HOME, arguments: {'role': user.role});
-      // } else {
-      //   Get.offAllNamed(Routes.WELCOME);
-      // }
+      final user = await PreferencesService.getUser();
+      if (user != null) {
+        Get.offAllNamed(Routes.MAIN, 
+        //arguments: {'role': user.role}
+        );
+      } else {
+        Get.offAllNamed(Routes.WELCOME);
+      }
     }
   }
 

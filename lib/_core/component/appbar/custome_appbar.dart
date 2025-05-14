@@ -15,7 +15,6 @@ class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final int? totalSteps;
   final bool centerTitle;  // <--- TAMBAH
 
-
   const CustomeAppBar({
     Key? key,
     required this.title,
@@ -39,41 +38,13 @@ class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: backgroundColor,
       elevation: elevation,
       centerTitle: centerTitle,
-      // leading: onBack != null
-      //     ? IconButton(
-      //         onPressed: onBack,
-      //         icon: Icon(
-      //           Icons.arrow_back,
-      //           color: TextColors.grey100,
-      //           size: 24,
-      //         ),
-      //       )
-      //     : null,
+     
       leading: onBack != null
         ? Padding(
-            padding: const EdgeInsets.only(left: 12.0),
+            padding: const EdgeInsets.all(8.0),
             child: IconButtonBack(onTab: onBack!),
           )
         : null,
-
-
-      // title: Column(
-      //   mainAxisSize: MainAxisSize.min,
-      //   crossAxisAlignment: CrossAxisAlignment.start,
-      //   children: [
-      //     TypographyStyles.bodySmallBold(
-      //       title,
-      //       textAlign: TextAlign.left,
-      //       color: TextColors.grey700,
-      //     ),
-      //     if (currentStep != null && totalSteps != null)
-      //       TypographyStyles.captionReguler(
-      //         'Langkah $currentStep dari $totalSteps',
-      //         textAlign: TextAlign.center,
-      //         color: TextColors.grey500,
-      //       ),
-      //   ],
-      // ),
 
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,16 +64,6 @@ class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
         ],
       ),
-
-      // bottom: showBottomBorder
-      //     ? PreferredSize(
-      //         preferredSize: const Size.fromHeight(1.0),
-      //         child: Container(
-      //           color: TextColors.grey700,
-      //           height: 1.0,
-      //         ),
-      //       )
-      //     : null,
       
       bottom: (showBottomBorder || (currentStep != null && totalSteps != null))
         ? PreferredSize(
@@ -133,25 +94,6 @@ class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ],
                 )
 
-            // child: (currentStep != null && totalSteps != null)
-            //     ? Padding(
-            //         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            //         child: Row(
-            //           children: List.generate(totalSteps!, (index) {
-            //             bool isActive = index < currentStep!;
-            //             return Expanded(
-            //               child: Container(
-            //                 margin: const EdgeInsets.symmetric(horizontal: 2),
-            //                 height: 6,
-            //                 decoration: BoxDecoration(
-            //                   color: isActive ? Colors.blue : Colors.grey.shade300,
-            //                   borderRadius: BorderRadius.circular(4),
-            //                 ),
-            //               ),
-            //             );
-            //           }),
-            //         ),
-            //       )
                 : Container(
                     height: 1.0,
                     color: TextColors.grey700,
@@ -179,6 +121,7 @@ class AppBarPrimary extends CustomeAppBar {
   AppBarPrimary({
   required String title,
   VoidCallback? onBack,
+  VoidCallback? onTab2,
   Color? backgroundColor,
   double? elevation,
   int? currentStep, // <--- TAMBAH
@@ -198,6 +141,7 @@ class AppBarSecondary extends CustomeAppBar {
   AppBarSecondary({
   required String title,
   VoidCallback? onBack,
+  
   Color? backgroundColor,
   double? elevation,
   int? currentStep, // <--- TAMBAH
@@ -206,36 +150,11 @@ class AppBarSecondary extends CustomeAppBar {
         title: title,
         centerTitle: false,
         onBack: onBack,
+        onTab2: onTab2,
         backgroundColor: backgroundColor,
         elevation: elevation,
         currentStep: currentStep, // <--- TAMBAH
         totalSteps: totalSteps,   // <--- TAMBAH
         showBottomBorder: true);
 
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return AppBar(
-  //     backgroundColor: backgroundColor,
-  //     elevation: elevation,
-  //     leading: onBack != null
-  //         ? IconButton(
-  //             icon: Icon(
-  //               Icons.arrow_back,
-  //               color: TextColors.grey700,
-  //             ),
-  //             onPressed: onBack,
-  //           )
-  //         : null,
-  //     title: TypographyStyles.bodySmallSemiBold(title),
-  //     // Use body text style for the title
-  //     bottom: PreferredSize(
-  //       preferredSize: const Size.fromHeight(1.0),
-  //       child: Container(
-  //         color: TextColors.grey200,
-  //         height: 1.0,
-  //       ),
-  //     ),
-  //   );
-  // }
 }

@@ -181,8 +181,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           backgroundColor: Colors.green,
                           colorText: Colors.white,
                         );
-                        Get.toNamed(Routes.HOME, arguments: {
-                          'role': authController.authResponses.value!.data!.role
+                        Get.toNamed(Routes.MAIN, arguments: {
+                          // 'role': authController.authResponses.value!.data!.role
                           });
                         }
                       } else {
