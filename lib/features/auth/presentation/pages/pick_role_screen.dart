@@ -2,6 +2,7 @@ import 'package:e_pkk_nganjuk/_core/component/button/button_fill.dart';
 import 'package:e_pkk_nganjuk/_core/component/form/drop_down.dart';
 import 'package:e_pkk_nganjuk/commons/constants/colors.dart';
 import 'package:e_pkk_nganjuk/commons/constants/typography.dart';
+import 'package:e_pkk_nganjuk/repositories/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ import '../component/header_text.dart';
 import '../component/icon_button_back.dart';
 
 class PickRoleScreen extends StatelessWidget {
+  
   final PickRoleController pickRoleController = Get.put(PickRoleController());
   final _formKey = GlobalKey<FormState>();
   final AuthController authController = Get.find<AuthController>();
@@ -139,24 +141,47 @@ class PickRoleScreen extends StatelessWidget {
           child: ButtonFill(
             text: 'Lanjut',
             textColor: Colors.white,
-            onPressed: () {
+            onPressed: () async {
               if (_formKey.currentState!.validate()) {
                 print('Validator: Form is valid');
 
+                try {
+                    // Kirim OTP via AuthRepository
+                    await authController.sendOtpViaWhatsApp(
+                      phone_number, // Format bebas (08xxx, +628xxx, dll)
+                      authController.randomNumber, //generate otp
+                    );
+
+                    Get.toNamed(Routes.VERIFICATION, arguments: { 
+                      'role_id': role_id,
+                      'role_name': role_name,
+                      'full_name': full_name,
+                      'phone_number': phone_number,
+                      'password': password,
+                      'id_subdistrict': pickRoleController.kecamatanSelected.value,
+                      'id_village': pickRoleController.selectedDesa.value,
+                      'organization_name': pickRoleController.selectedRoleBidang.value,
+                      'id_organization': pickRoleController.selectedRoleBidangID.value,
+                      'kode_otp': authController.randomNumber,});     
+                  } catch (e) {
+                    Get.snackbar('Error', 'Gagal mengirim OTP: $e');
+                  }
+                
+
                 // pickRoleController.sendKodeOtp(noWhatsapp);
 
-                Get.toNamed(Routes.VERIFICATION, arguments: {
-                  'role_id': role_id,
-                  'role_name': role_name,
-                  'full_name': full_name,
-                  'phone_number': phone_number,
-                  'password': password,
-                  'id_subdistrict': pickRoleController.kecamatanSelected.value,
-                  'id_village': pickRoleController.selectedDesa.value,
-                  'organization_name': pickRoleController.selectedRoleBidang.value,
-                  'id_organization': pickRoleController.selectedRoleBidangID.value,
-                  'kode_otp': pickRoleController.randomNumber,
-                });
+                // Get.toNamed(Routes.VERIFICATION, arguments: {
+                //   'role_id': role_id,
+                //   'role_name': role_name,
+                //   'full_name': full_name,
+                //   'phone_number': phone_number,
+                //   'password': password,
+                //   'id_subdistrict': pickRoleController.kecamatanSelected.value,
+                //   'id_village': pickRoleController.selectedDesa.value,
+                //   'organization_name': pickRoleController.selectedRoleBidang.value,
+                //   'id_organization': pickRoleController.selectedRoleBidangID.value,
+                //   'kode_otp': pickRoleController.randomNumber,
+                // });
                 print('role_id : $role_id');
                 print('role_name : $role_name');
                 print('full_name : $full_name');
@@ -167,15 +192,7 @@ class PickRoleScreen extends StatelessWidget {
                 print('organization_name : ${pickRoleController.selectedRoleBidang.value}');
                 print('id_organization : ${pickRoleController.selectedRoleBidangID.value}');
                 print('kode_otp : ${pickRoleController.randomNumber}');
-                // print(
-                //       'Nama : ${namaPengguna} ' +
-                //       'Wa : ${noWhatsapp} ' +
-                //       'Pw : ${password} ' +
-                //       'Kecamatan : ${pickRoleController.kecamatanSelected.value} ' +
-                //       'Desa : ${pickRoleController.selectedDesa.value} ' +
-                //       'roleBidang : ${pickRoleController.selectedRoleBidang.value} ' +
-                //       'Kode OTP : ${pickRoleController.randomNumber}',
-                // );
+                
               }
             },
           ),

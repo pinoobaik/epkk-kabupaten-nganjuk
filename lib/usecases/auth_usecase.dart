@@ -49,3 +49,26 @@ class AuthRegisterUseCase {
     );
   }
 }
+
+// auth_usecase.dart
+class ForgotPasswordUseCase {
+  final AuthRepository repository;
+
+  ForgotPasswordUseCase({required this.repository});
+
+  Future<ForgotPasswordResponse> verifyPhone(String phone) async {
+    return await repository.verifyPhoneNumber(phone);
+  }
+
+  Future<ForgotPasswordResponse> resetPassword({
+    required String phone,
+    required String newPassword,
+    
+  }) async {
+    return await repository.resetPassword(
+      phone: phone,
+      newPassword: newPassword,
+      
+    );
+  }
+}

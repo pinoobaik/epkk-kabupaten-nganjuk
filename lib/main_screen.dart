@@ -19,7 +19,7 @@ class MainScreen extends StatelessWidget {
 
     final List<Widget> pages = [
       HomeScreen(),
-      RiwayatPage(),
+      RiwayatScreen(),
       PengumumanScreen(),
       AkunPage(),
     ];

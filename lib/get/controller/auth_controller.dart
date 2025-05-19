@@ -1,8 +1,10 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
+import 'package:e_pkk_nganjuk/repositories/auth_repository.dart';
 import 'package:e_pkk_nganjuk/usecases/auth_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:e_pkk_nganjuk/commons/constants/colors.dart';
 
 import '../../features/auth/data/model/auth_model.dart';
 import '../../routes/app_routes.dart';
@@ -11,16 +13,21 @@ import '../../services/preferences/preferences_service.dart';
 class AuthController extends GetxController {
   final AuthLoginUseCase authUseCase;
   final AuthRegisterUseCase authRegisterUseCase;
+  final ForgotPasswordUseCase forgotPasswordUseCase;
+  final AuthRepository authRepo = Get.find<AuthRepository>();
 
+  var isForgotPasswordLoading = false.obs;
   var authResponse = Rxn<LoginResponse>();
   var isAuthLogin = false.obs;
   var authResponses = Rxn<RegisterResponse>();
   var isAuthRegister = false.obs;
   var errorMessage = ''.obs;
+  String randomNumber = "1000";
 
   AuthController({
     required this.authUseCase,
     required this.authRegisterUseCase,
+    required this.forgotPasswordUseCase,
   });
 
   Future<void> checkLoginStatus() async {
@@ -116,29 +123,11 @@ class AuthController extends GetxController {
     required String id_organization,
     required String kode_otp,
     required String password,
-    // required String full_name,
-    // required String phone_number,
-    // required String kecamatan,
-    // required String desa,
-    // required String id_role,
-    // required String roleBidang,
-    // required String password,
-    // required String kodeOtp,
-    //required String status,
   }) async {
     isAuthRegister.value = true;
     errorMessage.value = '';
     try {
       final response = await authRegisterUseCase.execute(
-        // nama_pengguna: nama_pengguna,
-        // noWhatsapp: noWhatsapp,
-        // kecamatan: kecamatan,
-        // desa: desa,
-        // role: role,
-        // roleBidang: roleBidang,
-        // password: password,
-        // kodeOtp: kodeOtp,
-        // status: status,
         full_name: full_name,
         phone_number: phone_number,
         id_subdistrict: id_subdistrict,
@@ -169,4 +158,100 @@ class AuthController extends GetxController {
       isAuthRegister.value = false;
     }
   }
+
+  Future<void> verifyPhoneForPasswordReset(String phone) async {
+    try {
+      isForgotPasswordLoading.value = true;
+      final response = await forgotPasswordUseCase.verifyPhone(phone);
+      if (response.statusCode == 200) {
+        Get.toNamed(Routes.VERIFICATION_FORGOT_PASSWORD, arguments: {
+          'phone': phone,
+        });
+      } else {
+        Get.snackbar('Error', response.message);
+      }
+    } finally {
+      isForgotPasswordLoading.value = false;
+    }
+  }
+
+  Future<void> resetPassword({
+  required String phone,
+  required String newPassword,
+  }) async {
+    try {
+      isForgotPasswordLoading.value = true;
+      errorMessage.value = '';
+
+      print('Sending reset password with:');
+      print('Phone: "$phone"');
+      print('New Password: "$newPassword"');
+
+      final response = await forgotPasswordUseCase.resetPassword(
+        phone: phone,
+        newPassword: newPassword,
+      );
+
+      if (response.statusCode == 200) {
+        // Tambahan: pastikan response tidak ada error tersembunyi
+        if (response.errorMessage != null && response.errorMessage!.isNotEmpty) {
+          errorMessage.value = response.errorMessage!;
+        } else {
+          errorMessage.value = '';
+          await PreferencesService.clearUserData();
+          Get.offAllNamed(Routes.WELCOME);
+        }
+      } else {
+        errorMessage.value = response.errorMessage ?? response.message;
+      }
+    } catch (e) {
+      errorMessage.value = 'Terjadi kesalahan: $e';
+    } finally {
+      isForgotPasswordLoading.value = false;
+    }
+  }
+
+
+
+  Future<void> sendOtpViaWhatsApp(String phoneNumber, String otp) async {
+    try {
+      await authRepo.sendOtpToWhatsApp(
+        phoneNumber: phoneNumber,
+        otp: otp,
+      );
+    } catch (e) {
+      throw Exception('Error dari AuthRepository: $e');
+    }
+  }
+
+  // AuthController
+  Future<void> resendOTP(String phone) async {
+    try {
+      isForgotPasswordLoading.value = true;
+      await forgotPasswordUseCase.verifyPhone(phone);
+      Get.snackbar(
+        'Berhasil',
+        'Kode OTP baru telah dikirim',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+    } finally {
+      isForgotPasswordLoading.value = false;
+    }
+  }
+
+  Future<void> logout() async {
+    await PreferencesService.clearUserData();
+    Get.offAllNamed(Routes.WELCOME); // atau Routes.LOGIN jika kamu punya halaman login khusus
+  }
+
+  void generateRandomNumber() {
+    Random random = new Random();
+    randomNumber = (random.nextInt(9000) + 1000).toString();
+    print('Generated Random Number: $randomNumber'); // Debug print
+  }
 }
+
+
+

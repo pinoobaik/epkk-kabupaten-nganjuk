@@ -7,7 +7,7 @@ class PinCodeFields extends StatelessWidget {
 
   const PinCodeFields({
     super.key,
-    required this.controller,
+    required this.controller ,
   });
 
   @override

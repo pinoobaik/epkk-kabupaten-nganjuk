@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:e_pkk_nganjuk/features/auth/data/model/role_bidang_list.dart';
+import 'package:e_pkk_nganjuk/repositories/auth_repository.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 import '../../features/auth/data/model/dropdown_model.dart';
 
@@ -10,6 +13,7 @@ class PickRoleController extends GetxController {
   var selectedDesa = ''.obs;
   var selectedRoleBidang = ''.obs;
   String randomNumber = "1000";
+  final AuthRepository authRepo = Get.find<AuthRepository>();
 
   var desaList = <String>[].obs;
   var roleBidang = <String>[].obs;
@@ -19,7 +23,7 @@ class PickRoleController extends GetxController {
   void onInit() {
     super.onInit();
     roleBidang.assignAll(RoleBidangList.roleBidangList);
-    generateRandomNumber();
+    //generateRandomNumber();
   }
 
   void updateKecamatan(String kecamatan) {
@@ -48,29 +52,20 @@ class PickRoleController extends GetxController {
   }
 
   // Fungsi untuk mengenerate angka acak
-  void generateRandomNumber() {
-    Random random = new Random();
-    randomNumber = (random.nextInt(9000) + 1000).toString();
-    print('Generated Random Number: $randomNumber'); // Debug print
-  }
+  // void generateRandomNumber() {
+  //   Random random = new Random();
+  //   randomNumber = (random.nextInt(9000) + 1000).toString();
+  //   print('Generated Random Number: $randomNumber'); // Debug print
+  // }
 
-  // Future<void> sendKodeOtp(String noHp) async {
-  //   Uri url = Uri.parse(ApiHelper.url + 'otpWa.php');
-  //
-  //   if (randomNumber == 0) {
-  //     generateRandomNumber();
-  //   }
-  //
-  //   var data = {
-  //     "kodeOtp": randomNumber.toString(),
-  //     "noHp": noHp,
-  //   };
-  //   var response = await http.post(url, body: data);
-  //   if (response.statusCode == 200) {
-  //     var responseData = json.decode(response.body);
-  //     print('Respon dari server: $responseData');
-  //   } else {
-  //     print('Gagal mengirim data. Kode status: ${response.statusCode}');
+  // Future<void> sendOtpViaWhatsApp(String phoneNumber, String otp) async {
+  //   try {
+  //     await authRepo.sendOtpToWhatsApp(
+  //       phoneNumber: phoneNumber,
+  //       otp: otp,
+  //     );
+  //   } catch (e) {
+  //     throw Exception('Error dari AuthRepository: $e');
   //   }
   // }
 }

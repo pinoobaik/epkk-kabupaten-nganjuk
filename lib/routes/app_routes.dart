@@ -1,5 +1,10 @@
+import 'package:e_pkk_nganjuk/features/auth/presentation/pages/forget_password_screen.dart';
+import 'package:e_pkk_nganjuk/features/auth/presentation/pages/reset_password_screen.dart';
+import 'package:e_pkk_nganjuk/features/auth/presentation/pages/verification_forget_password_screen.dart';
+import 'package:e_pkk_nganjuk/features/home/presentation/pages/edit_password_screen.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/gotong_royong_screen.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/home_screen.dart';
+import 'package:e_pkk_nganjuk/features/home/presentation/pages/informasi_akun_screen.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/kader_pokja3_screen.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/kader_pokja4_screen.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/kelestarian1_screen.dart';
@@ -36,6 +41,7 @@ import 'package:e_pkk_nganjuk/get/binding/kader_pokja4_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/kelestarian_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/kesehatan_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/laporan_umum_binding.dart';
+import 'package:e_pkk_nganjuk/get/binding/main_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/pangan_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/pendidikan_keterampilan_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/pengembangan_kehidupan_binding.dart';
@@ -70,7 +76,7 @@ class AppRoutes {
     GetPage(
       name: Routes.MAIN,
       page: () => MainScreen(),
-      binding: PengumumanBinding(),
+      binding: MainBinding(),
     ),
     GetPage(
       name: Routes.WELCOME,
@@ -82,21 +88,35 @@ class AppRoutes {
       page: () => AuthScreen(),
       binding: AuthBinding(),
     ),
-    // GetPage(
-    //   name: Routes.RESET_PASSWORD,
-    //   page: () => ForgetPasswordScreen(),
-    // ),
+    GetPage(
+      name: Routes.RESET_PASSWORD,
+      page: () => ForgetPasswordScreen(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: Routes.VERIFICATION_FORGOT_PASSWORD,
+      page: () => VerificationForgotPasswordScreen(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: Routes.RESET_PASSWORD_BARU,
+      page: () => ResetPasswordScreen(),
+      binding: AuthBinding(),
+    ),
     GetPage(
       name: Routes.REGISTER,
       page: () => RegisterScreen(),
+      binding: AuthBinding(),
     ),
     GetPage(
       name: Routes.PICK_ROLE,
       page: () => PickRoleScreen(),
+      binding: AuthBinding(),
     ),
     GetPage(
       name: Routes.VERIFICATION,
       page: () => VerificationScreen(),
+      binding: AuthBinding(),
     ),
     GetPage(
       name: Routes.HOME,
@@ -241,15 +261,23 @@ class AppRoutes {
       page: () => LaporanUmum2Screen(),
       binding: LaporanUmumBinding(),
     ),
-      GetPage(
-      name: Routes.LAPORAN_UMUM3,
-      page: () => LaporanUmum3Screen(),
-      binding: LaporanUmumBinding(),
+    GetPage(
+    name: Routes.LAPORAN_UMUM3,
+    page: () => LaporanUmum3Screen(),
+    binding: LaporanUmumBinding(),
     ),
-      GetPage(
-      name: Routes.LAPORAN_UMUM4,
-      page: () => LaporanUmum4Screen(),
-      binding: LaporanUmumBinding(),
+    GetPage(
+    name: Routes.LAPORAN_UMUM4,
+    page: () => LaporanUmum4Screen(),
+    binding: LaporanUmumBinding(),
+    ),
+    GetPage(
+      name: Routes.INFO_AKUN,
+      page: () => InfoAkunScreen(),
+    ),
+    GetPage(
+      name: Routes.EDIT_PASSWORD,
+      page: () => EditPasswordScreen(),
     ),
   ];
 }
@@ -262,6 +290,8 @@ class Routes {
   static const AUTH_LOGIN = '/auth_login';
 
   static const RESET_PASSWORD = '/reset_password';
+  static const VERIFICATION_FORGOT_PASSWORD = '/verification_forgot_password';
+  static const RESET_PASSWORD_BARU = '/reset_password_baru';
 
   static const REGISTER = '/register';
   static const PICK_ROLE = '/pick_role';
@@ -302,4 +332,7 @@ class Routes {
   static const LAPORAN_UMUM2 = '/laporan_umum2';
   static const LAPORAN_UMUM3 = '/laporan_umum3';
   static const LAPORAN_UMUM4 = '/laporan_umum4';
+
+  static const INFO_AKUN = '/info_akun';
+  static const EDIT_PASSWORD = '/edit_password';
 }

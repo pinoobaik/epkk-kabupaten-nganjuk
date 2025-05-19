@@ -64,6 +64,28 @@ class RegisterResponse {
   }
 }
 
+// auth_model.dart
+class ForgotPasswordResponse {
+  final String message;
+  final int statusCode;
+  final String? errorMessage;
+
+  ForgotPasswordResponse({
+    required this.message,
+    required this.statusCode,
+    this.errorMessage,
+  });
+
+  factory ForgotPasswordResponse.fromJson(Map<String, dynamic> json) {
+    return ForgotPasswordResponse(
+      message: json['message'],
+      statusCode: json['statusCode'],
+      errorMessage: json['error']?['message'], // aman walau tidak ada error
+    );
+  }
+}
+
+
 
 class UserData {
   final String id;

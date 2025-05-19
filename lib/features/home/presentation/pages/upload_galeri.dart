@@ -45,9 +45,17 @@ class _UploadGaleriPageState extends State<UploadGaleriPage> {
 
   void _initializeBidangList() {
     if (id_organization == '1') {
-      _bidangList = ['Pokja 1', 'Penghayatan', 'Gotong Royong'];
+      _bidangList = ['Kader Pokja 1', 'Penghayatan & Pengamalan Pancasila', 'Gotong Royong'];
     } else if (id_organization == '2') {
-      _bidangList = ['Pendidikan', 'Pengembangan'];
+      _bidangList = ['Pendidikan & Ketrampilan', 'Pengembangan Kehidupan Berkoperasi'];
+    } else if (id_organization == '3') {
+      _bidangList = ['Kader Pokja 3', 'Program Pangan', 'Program Sandang', 'Program Perumahan & Tata Laksana Rumah Tangga'];
+    } else if (id_organization == '4') {
+      _bidangList = ['Kader Pokja 4', 'Kesehatan', 'Kelestarian Lingkungan Hidup', 'Perencanaan Sehat'];
+    } else if (id_organization == '5') {
+      _bidangList = ['Laporan Umum'];
+    } else {
+      _bidangList = ['Bidang Tidak Ditemukan, Harap Login Ulang'];
     }
   }
 

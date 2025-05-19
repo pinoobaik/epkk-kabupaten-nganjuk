@@ -28,7 +28,9 @@ class PengumumanScreen extends StatelessWidget {
         },
       ),
       
+      
       body: Obx(() {
+        const Divider(height: 1);
         if (pengumumanController.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
         }
@@ -40,12 +42,12 @@ class PengumumanScreen extends StatelessWidget {
         if (pengumumanController.pengumumanList.isEmpty) {
           return const Center(child: Text("Belum ada pengumuman."));
         }
-
+        
         return ListView.builder(
           padding: EdgeInsets.only(top: 16.h),
           itemCount: pengumumanController.pengumumanList.length,
           itemBuilder: (context, index) {
-            final pengumuman = pengumumanController.pengumumanList[index];
+          final pengumuman = pengumumanController.pengumumanList[index];
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: CardPengumuman(

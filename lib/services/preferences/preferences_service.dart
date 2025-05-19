@@ -14,6 +14,8 @@ class PreferencesService {
     await prefs.setInt(_loginTimestampKey, DateTime.now().millisecondsSinceEpoch);
   }
 
+  
+
   static Future<UserData?> getUser() async {
     final prefs = await SharedPreferences.getInstance();
     String? userData = prefs.getString(_userKey);

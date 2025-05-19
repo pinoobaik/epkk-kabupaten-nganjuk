@@ -71,15 +71,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
     print('id_village : $id_village');
     print('organization_name : $organization_name');
     print('id_organization : $id_organization');
-      // final roleBidang = Get.arguments['role_bidang'] ?? '';
-    // final roleBidang = (Get.arguments['role_bidang'] is int)
-    //   ? Get.arguments['role_bidang'].toString()
-    //   : (Get.arguments['role_bidang'] ?? '');
-    // final kodeOtp = Get.arguments['kode_otp']?.toString() ?? '';
-    // final String status = 'Active';
-
-    // print('Expected OTP: $kodeOtp'); // Debug: Print expected OTP
-    // print('Arguments received in VerificationScreen: ${Get.arguments}');
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -91,7 +82,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
             children: [
               IconButtonBack(
                 onTab: () {
-                  Get.find<PickRoleController>().generateRandomNumber();
+                  Get.find<AuthController>().generateRandomNumber();
                   Get.toNamed(Routes.PICK_ROLE, arguments: {
                     'role_id': role_id, 
                     'role_name': role_name,
@@ -162,15 +153,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           id_organization: id_organization,
                           password: password,
                           kode_otp: kode_otp,
-                          // nama_pengguna: namaPengguna,
-                          // noWhatsapp: noWhatsapp,
-                          // kecamatan: kecamatan,
-                          // desa: desa,
-                          // role: role,
-                          // roleBidang: roleBidang,
-                          // password: password,
-                          // kodeOtp: _codeController.text,
-                          // status: status,
                         );
                         print('Auth Response: ${authController.authResponses.value}');
                         if (authController.authResponses.value?.data != null) {
@@ -181,7 +163,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           backgroundColor: Colors.green,
                           colorText: Colors.white,
                         );
-                        Get.toNamed(Routes.MAIN, arguments: {
+                        Get.offAllNamed(Routes.MAIN, arguments: {
                           // 'role': authController.authResponses.value!.data!.role
                           });
                         }

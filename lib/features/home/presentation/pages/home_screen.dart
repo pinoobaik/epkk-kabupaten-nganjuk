@@ -80,12 +80,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 20.h),
-                      if (id_role != null && id_role == "1") ...[
-                        WidgetCarouselBanner(),
-                      ] else ...[
-                        GridButtons(),
-                      ],
-                      // WidgetCarouselBanner(),
+                      // if (id_role != null && id_role == "1") ...[
+                      //   WidgetCarouselBanner(),
+                      // ] else ...[
+                      //   GridButtons(),
+                      // ],
+                      WidgetCarouselBanner(),
                       SizedBox(height: 32.h),
                       if (roleBidang == 'Laporan Umum') ...[
                         CardButtonActions(
@@ -154,11 +154,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         return Column(
                           children: [
-                              WidgetTextPengumuman(
-                          firstText: 'Pengumuman',
-                          secondText: 'Daftar pengumuman dari pusat',
-                          threeText: 'Lihat semua',
-                          svgIcon: 'assets/icons/ic_arrow_right.svg',
+                          WidgetTextPengumuman(
+                            firstText: 'Pengumuman',
+                            secondText: 'Daftar pengumuman dari pusat',
+                            threeText: 'Lihat semua',
+                            svgIcon: 'assets/icons/ic_arrow_right.svg',
                           ),
                           SizedBox(height: 16.h),
                           ListView.builder(

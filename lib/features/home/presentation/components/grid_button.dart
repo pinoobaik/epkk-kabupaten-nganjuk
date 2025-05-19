@@ -58,10 +58,10 @@ class GridButtons extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Flexible( // ◀️ 5. Bungkus dengan Flexible
+                  Flexible( 
                     child: Text(date, 
                       style: TextStyle(fontSize: 12, color: Colors.grey),
-                      maxLines: 1, // ◀️ 6. Batasi line text
+                      maxLines: 1, 
                     ),
                   ),
                   SizedBox(height: 4),

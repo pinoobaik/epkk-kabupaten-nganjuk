@@ -77,6 +77,75 @@ class AuthRepository {
         rethrow;
       }
     }
+
+    // auth_repository.dart
+  Future<void> sendOtpToWhatsApp({
+    required String phoneNumber,
+    required String otp,
+    }) async {
+      try {
+        final response = await apiHelper.post(
+          '/auth/send-otp.php', // Endpoint backend
+          data: {
+            'phone': formatPhoneNumber(phoneNumber), // Konversi ke 628xxx
+            'otp': otp,
+          },
+        );
+
+        if (response.statusCode != 200 || response.data['success'] != true) {
+          throw Exception('Gagal mengirim OTP: ${response.data['message']}');
+        }
+      } catch (e) {
+        rethrow; // Lempar error ke controller
+      }
+    }
+
+  // Helper untuk format nomor telepon
+  String formatPhoneNumber(String rawPhone) {
+    String cleaned = rawPhone.replaceAll(RegExp(r'[^0-9]'), '');
+    if (cleaned.startsWith('0')) {
+      cleaned = cleaned.replaceFirst('0', '62');
+    } else if (cleaned.startsWith('+62')) {
+      cleaned = cleaned.replaceFirst('+62', '62');
+    } else if (!cleaned.startsWith('62')) {
+      cleaned = '62$cleaned';
+    }
+    return cleaned;
+  }
+
+  Future<ForgotPasswordResponse> verifyPhoneNumber(String phoneNumber) async {
+    try {
+      final response = await apiHelper.get(
+        '/forget-password/check_user.php',
+        queryParameters: {
+          'phone_number': formatPhoneNumber(phoneNumber),
+        },
+      );
+      return ForgotPasswordResponse.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ForgotPasswordResponse> resetPassword({
+    required String phone,
+    required String newPassword,
+    
+  }) async {
+    try {
+      final response = await apiHelper.post(
+        '/forget-password/update_password.php',
+        data: {
+          'phone': phone,
+          'new_password': newPassword,
+          
+        },
+      );
+      return ForgotPasswordResponse.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
 
   // coba 2
