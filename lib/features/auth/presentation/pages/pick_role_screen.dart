@@ -146,6 +146,7 @@ class PickRoleScreen extends StatelessWidget {
                 print('Validator: Form is valid');
 
                 try {
+                    authController.generateRandomNumber();
                     // Kirim OTP via AuthRepository
                     await authController.sendOtpViaWhatsApp(
                       phone_number, // Format bebas (08xxx, +628xxx, dll)

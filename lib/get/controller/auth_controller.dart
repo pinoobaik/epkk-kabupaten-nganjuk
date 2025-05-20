@@ -22,7 +22,7 @@ class AuthController extends GetxController {
   var authResponses = Rxn<RegisterResponse>();
   var isAuthRegister = false.obs;
   var errorMessage = ''.obs;
-  String randomNumber = "1000";
+  String randomNumber = '1000';
 
   AuthController({
     required this.authUseCase,
