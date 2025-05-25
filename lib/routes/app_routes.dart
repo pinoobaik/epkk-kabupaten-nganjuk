@@ -1,6 +1,7 @@
 import 'package:e_pkk_nganjuk/features/auth/presentation/pages/forget_password_screen.dart';
 import 'package:e_pkk_nganjuk/features/auth/presentation/pages/reset_password_screen.dart';
 import 'package:e_pkk_nganjuk/features/auth/presentation/pages/verification_forget_password_screen.dart';
+import 'package:e_pkk_nganjuk/features/home/presentation/pages/detail_laporan_screen.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/edit_password_screen.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/gotong_royong_screen.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/pages/home_screen.dart';
@@ -49,6 +50,7 @@ import 'package:e_pkk_nganjuk/get/binding/penghayatan_pengamalan_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/pengumuman_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/perencanaan_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/perumahan_binding.dart';
+import 'package:e_pkk_nganjuk/get/binding/riwayat_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/sandang_binding.dart';
 import 'package:e_pkk_nganjuk/get/binding/welcome_binding.dart';
 import 'package:e_pkk_nganjuk/main_screen.dart';
@@ -132,6 +134,11 @@ class AppRoutes {
       page: () => UploadGaleriPage(),
       binding: GaleriBinding(),
     ),
+    // GetPage(
+    //   name: Routes.DETAIL,
+    //   page: () => DetailLaporanScreen(),
+    //   binding: RiwayatBinding(),
+    // ),
     GetPage(
       name: Routes.KADER_POKJA1,
       page: () => KaderPokja1Screen(),
@@ -300,6 +307,7 @@ class Routes {
   static const HOME = '/home';
   static const UPLOAD_LAPORAN = '/upload_laporan';
   static const UPLOAD_GALERI = '/upload_galeri';
+  static const DETAIL = '/detail_laporan';
 
   static const KADER_POKJA1 = '/kader_pokja1';
   static const PENGHAYATAN = '/penghayatan';

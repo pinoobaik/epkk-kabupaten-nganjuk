@@ -8,14 +8,16 @@ class WidgetTextPengumuman extends StatelessWidget {
   final String firstText;
   final String secondText;
   final String threeText;
-  // final String svgIcon;
+  final String svgIcon;
+  final VoidCallback? onTapThreeText;
 
-  WidgetTextPengumuman({
+  const WidgetTextPengumuman({
     super.key,
     required this.firstText,
     required this.secondText,
     required this.threeText,
-    // required this.svgIcon,
+    required this.svgIcon,
+    this.onTapThreeText,
   });
 
   @override
@@ -24,40 +26,47 @@ class WidgetTextPengumuman extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TypographyStyles.bodyCaptionSemiBold(
-              firstText,
-              color: TextColors.grey700,
-              overflow: TextOverflow.ellipsis,
-              maxlines: 1,
-            ),
-            TypographyStyles.bodyCaptionSmallReguler(
-              secondText,
-              color: TextColors.grey600,
-              overflow: TextOverflow.ellipsis,
-              maxlines: 1,
-            ),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TypographyStyles.bodyCaptionSemiBold(
+                firstText,
+                color: TextColors.grey700,
+                overflow: TextOverflow.ellipsis,
+                maxlines: 1,
+              ),
+              SizedBox(height: 4.h),
+              TypographyStyles.bodyCaptionSmallReguler(
+                secondText,
+                color: TextColors.grey600,
+                overflow: TextOverflow.ellipsis,
+                maxlines: 1,
+              ),
+            ],
+          ),
         ),
-        Row(
-          children: [
-            TypographyStyles.bodyCaptionSmallReguler(
-              threeText,
-              color: BrandColors.brandPrimary500,
-              overflow: TextOverflow.ellipsis,
-              maxlines: 1,
-            ),
-            SizedBox(width: 4.w),
-            // SvgPicture.asset(
-            //   svgIcon,
-            //   width: 20.w,
-            //   height: 20.h,
-            //   color: BrandColors.brandPrimary500,
-            // ),
-          ],
-        )
+        GestureDetector(
+          onTap: onTapThreeText,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TypographyStyles.bodyCaptionSmallReguler(
+                threeText,
+                color: BrandColors.brandPrimary500,
+                overflow: TextOverflow.ellipsis,
+                maxlines: 1,
+              ),
+              SizedBox(width: 4.w),
+              SvgPicture.asset(
+                svgIcon,
+                width: 20.w,
+                height: 20.h,
+                color: BrandColors.brandPrimary500,
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

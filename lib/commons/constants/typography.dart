@@ -130,7 +130,7 @@ class TypographyStyles extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.overflow = TextOverflow.ellipsis,
     this.maxlines,
-    this.color,
+    this.color, 
   }) : style = TextStyle(
           fontFamily: fontFamily,
           fontSize: 16.sp,
@@ -158,7 +158,7 @@ class TypographyStyles extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.overflow = TextOverflow.ellipsis,
     this.maxlines,
-    this.color,
+    this.color, 
   }) : style = TextStyle(
           fontFamily: fontFamily,
           fontSize: 14.sp,

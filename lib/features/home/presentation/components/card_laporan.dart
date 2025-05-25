@@ -11,7 +11,7 @@ class CardLaporan extends StatelessWidget {
   final String subtitle;
   final String status;
   final String dateText;
-  final VoidCallback onTab;
+  final VoidCallback onTap;
 
   CardLaporan({
     super.key,
@@ -19,13 +19,13 @@ class CardLaporan extends StatelessWidget {
     required this.subtitle,
     required this.status,
     required this.dateText,
-    required this.onTab,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return ZoomTapAnimation(
-      onTap: onTab,
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           color: TextColors.grey50,
@@ -142,7 +142,7 @@ String getSubtitleFromUUID(String uuid) {
     case 'KP2B2':
       return 'Pengembangan Kehidupan Berkoperasi';
     case 'KP3':
-      return 'Kader Pokja II';
+      return 'Kader Pokja III';
     case 'KP3B1':
       return 'Pangan';
     case 'KP3B2':

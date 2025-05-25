@@ -1,13 +1,38 @@
+class Pagination {
+  final int totalData;
+  final int totalHalaman;
+  final int halamanSekarang;
+  final int dataPerHalaman;
+
+  Pagination({
+    required this.totalData,
+    required this.totalHalaman,
+    required this.halamanSekarang,
+    required this.dataPerHalaman,
+  });
+
+  factory Pagination.fromJson(Map<String, dynamic> json) {
+    return Pagination(
+      totalData: json['total_data'] ?? 0,
+      totalHalaman: json['total_halaman'] ?? 1,
+      halamanSekarang: json['halaman_sekarang'] ?? 1,
+      dataPerHalaman: json['data_per_halaman'] ?? 10,
+    );
+  }
+}
+
 class PengumumanResponse {
   final int statusCode;
   final String message;
   final List<Pengumuman> data;
+  final Pagination? pagination;
   final ErrorMessage? error;
 
   PengumumanResponse({
     required this.statusCode,
     required this.message,
     required this.data,
+    this.pagination,
     this.error,
   });
 
@@ -15,9 +40,12 @@ class PengumumanResponse {
     return PengumumanResponse(
       statusCode: json['statusCode'] ?? 500,
       message: json['message'] ?? 'Unknown error',
-      data: (json['data'] as List)
-          .map((e) => Pengumuman.fromJson(e))
-          .toList(),
+      data: (json['data'] as List?)
+          ?.map((e) => Pengumuman.fromJson(e))
+          .toList() ?? [],
+      pagination: json['pagination'] != null 
+          ? Pagination.fromJson(json['pagination']) 
+          : null,
       error: json['error'] != null ? ErrorMessage.fromJson(json['error']) : null,
     );
   }

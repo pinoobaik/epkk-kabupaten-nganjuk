@@ -4,6 +4,7 @@ import 'package:e_pkk_nganjuk/features/home/presentation/components/card_pengumu
 import 'package:e_pkk_nganjuk/features/home/presentation/components/grid_button.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/components/widget_carousel_banner.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/components/widget_text_pengumuman.dart';
+import 'package:e_pkk_nganjuk/get/controller/nav_controller.dart';
 import 'package:e_pkk_nganjuk/get/controller/pengumuman_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,10 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // role = Get.arguments['role'] ?? 'Tidak diketahui';
-    // print('Role Home: $role');
     loadUserData().then((_){
-      pengumumanController.loadPengumuman();
+      // Ganti dengan loadLatestPengumuman
+      pengumumanController.loadLatestPengumuman(limit: 5);
     });
   }
 
@@ -156,17 +156,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                           WidgetTextPengumuman(
                             firstText: 'Pengumuman',
-                            secondText: 'Daftar pengumuman dari pusat',
-                            threeText: '',
-                            // svgIcon: '',
+                            secondText: 'Pengumuman terbaru dari pusat',
+                            threeText: 'Lihat Semua',
+                            svgIcon: 'assets/icons/ic_arrow_right.svg',
+                            onTapThreeText: () {
+                              final NavController navController = Get.find<NavController>();
+                              navController.changeTabIndex(2);
+                            },
                           ),
                           SizedBox(height: 16.h),
                           ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: pengumumanController.pengumumanList.length,
+                            itemCount: pengumumanController.latestPengumumanList.take(5).length,
                             itemBuilder: (context, index) {
-                              final pengumuman = pengumumanController.pengumumanList[index];
+                              final pengumuman = pengumumanController.latestPengumumanList[index];
                               return Padding(
                                 padding: EdgeInsets.only(bottom: 16.h),
                                 child: CardPengumuman(

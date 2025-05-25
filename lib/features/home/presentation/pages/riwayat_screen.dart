@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:e_pkk_nganjuk/_core/component/appbar/custome_appbar.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/components/card_laporan.dart';
 import 'package:e_pkk_nganjuk/features/home/presentation/components/riwayat_button.dart';
+import 'package:e_pkk_nganjuk/features/home/presentation/pages/detail_laporan_screen.dart';
 import 'package:e_pkk_nganjuk/get/controller/nav_controller.dart';
 import 'package:e_pkk_nganjuk/get/controller/riwayat_controller.dart';
 import 'package:e_pkk_nganjuk/services/preferences/preferences_service.dart';
@@ -56,7 +57,7 @@ class _RiwayatScreenState extends State<RiwayatScreen> {
       case 'Dibatalkan':
         return 'Dibatalkan';
       default:
-        return status; // untuk 'Proses', 'Revisi', atau status lain
+        return status; 
     }
   }
 
@@ -75,7 +76,7 @@ class _RiwayatScreenState extends State<RiwayatScreen> {
       ),
       body: Column(
         children: [
-          const Divider(height: 1),
+          
           StatusFilterCard(
             selectedStatus: selectedStatus,
             onStatusSelected: (status) {
@@ -119,7 +120,22 @@ class _RiwayatScreenState extends State<RiwayatScreen> {
                       subtitle: getSubtitleFromUUID(riwayat.uuid),
                       status: _getStatusLabel(riwayat.status),
                       dateText: DateFormat('dd-MM-yyyy').format(riwayat.createdAt),
-                      onTab: () {},
+                      onTap: () {
+                        
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailLaporanScreen(
+                              uuid: riwayat.uuid,
+                              title: riwayat.uuid,
+                              subtitle: getSubtitleFromUUID(riwayat.uuid),
+                              status: riwayat.status,
+                              createdAt: riwayat.createdAt,
+                              idOrganization: riwayat.idOrganization, // Ganti dengan nilai yang sesuai
+                            ),
+                          ),
+                        );
+                      }
                     ),
                   );
                 },
@@ -130,5 +146,6 @@ class _RiwayatScreenState extends State<RiwayatScreen> {
       ),
     );
   }
-
+  String _getJenisLaporanFromUUID(String uuid) {
+  return uuid.split('-').first;}
 }
