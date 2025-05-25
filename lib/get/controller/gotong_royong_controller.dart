@@ -45,40 +45,13 @@ class GotongRoyongController extends GetxController {
       // Handle response
       if (response.statusCode == 200) {
         reportData.value = response;
-        Get.snackbar(
-          'Berhasil', 
-          'Data gotong royong berhasil disimpan',
-          snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 3),
-        );
       } else {
         errorMessage.value = response.message;
-        Get.snackbar(
-          'Gagal', 
-          response.message,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 3),
-        );
       }
     } catch (e) {
       errorMessage.value = e.toString();
-      Get.snackbar(
-        'Error', 
-        'Terjadi kesalahan: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 3),
-      );
     } finally {
       isLoading.value = false;
     }
   }
-
-  // Clear form data
-  // void clearForm() {
-  //   reportData.value = null;
-  //   errorMessage.value = '';
-  // }
-
-  // Getter for form data
-  //GotongRoyongEntry? get formData => reportData.value?.data;
 }

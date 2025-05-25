@@ -27,6 +27,7 @@ class UploadLaporan extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBarPrimary(
         title: 'Upload Laporan',
+        onBack: () => Get.back(),
       ),
       body: SafeArea(
         child: Padding(

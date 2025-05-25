@@ -8,14 +8,14 @@ class WidgetTextPengumuman extends StatelessWidget {
   final String firstText;
   final String secondText;
   final String threeText;
-  final String svgIcon;
+  // final String svgIcon;
 
   WidgetTextPengumuman({
     super.key,
     required this.firstText,
     required this.secondText,
     required this.threeText,
-    required this.svgIcon,
+    // required this.svgIcon,
   });
 
   @override
@@ -50,12 +50,12 @@ class WidgetTextPengumuman extends StatelessWidget {
               maxlines: 1,
             ),
             SizedBox(width: 4.w),
-            SvgPicture.asset(
-              svgIcon,
-              width: 20.w,
-              height: 20.h,
-              color: BrandColors.brandPrimary500,
-            ),
+            // SvgPicture.asset(
+            //   svgIcon,
+            //   width: 20.w,
+            //   height: 20.h,
+            //   color: BrandColors.brandPrimary500,
+            // ),
           ],
         )
       ],

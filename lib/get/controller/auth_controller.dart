@@ -22,7 +22,7 @@ class AuthController extends GetxController {
   var authResponses = Rxn<RegisterResponse>();
   var isAuthRegister = false.obs;
   var errorMessage = ''.obs;
-  String randomNumber = '1000';
+  String generatedOtp = '1000';
 
   AuthController({
     required this.authUseCase,
@@ -225,15 +225,45 @@ class AuthController extends GetxController {
   }
 
   // AuthController
+  // Future<void> resendOTP(String phone) async {
+  //   try {
+  //     isForgotPasswordLoading.value = true;
+  //     await forgotPasswordUseCase.verifyPhone(phone);
+  //     Get.snackbar(
+  //       'Berhasil',
+  //       'Kode OTP baru telah dikirim',
+  //       snackPosition: SnackPosition.TOP,
+  //       backgroundColor: Colors.green,
+  //       colorText: Colors.white,
+  //     );
+  //   } finally {
+  //     isForgotPasswordLoading.value = false;
+  //   }
+  // }
+
   Future<void> resendOTP(String phone) async {
     try {
       isForgotPasswordLoading.value = true;
-      await forgotPasswordUseCase.verifyPhone(phone);
+
+      // Generate OTP baru
+      generateRandomNumber(); // Ini akan update `randomNumber`
+
+      // Kirim OTP ke WhatsApp
+      await sendOtpViaWhatsApp(phone, generatedOtp);
+
       Get.snackbar(
         'Berhasil',
-        'Kode OTP baru telah dikirim',
+        'Kode OTP baru telah dikirim ke WhatsApp',
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+    } catch (e) {
+      Get.snackbar(
+        'Gagal',
+        'Gagal mengirim ulang OTP: $e',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
         colorText: Colors.white,
       );
     } finally {
@@ -241,16 +271,46 @@ class AuthController extends GetxController {
     }
   }
 
+  Future<void> resendOtpForRegister({
+    required String phoneNumber,
+  }) async {
+    try {
+      isForgotPasswordLoading.value = true;
+      generateRandomNumber();
+      await sendOtpViaWhatsApp(phoneNumber, generatedOtp);
+      Get.snackbar(
+        'Kode Dikirim',
+        'Kode OTP baru telah dikirim ke nomor WhatsApp Anda',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Gagal mengirim ulang OTP: $e',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } finally {
+      isForgotPasswordLoading.value = false;
+    }
+  }
+
+
+
   Future<void> logout() async {
     await PreferencesService.clearUserData();
-    Get.offAllNamed(Routes.WELCOME); // atau Routes.LOGIN jika kamu punya halaman login khusus
+    Get.offAllNamed(Routes.WELCOME); 
   }
 
   void generateRandomNumber() {
-    Random random = new Random();
-    randomNumber = (random.nextInt(9000) + 1000).toString();
-    print('Generated Random Number: $randomNumber'); // Debug print
+    Random random = Random();
+    generatedOtp = (random.nextInt(9000) + 1000).toString();
+    print('Generated OTP: $generatedOtp');
   }
+
 }
 
 

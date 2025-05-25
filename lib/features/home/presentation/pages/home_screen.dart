@@ -157,8 +157,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           WidgetTextPengumuman(
                             firstText: 'Pengumuman',
                             secondText: 'Daftar pengumuman dari pusat',
-                            threeText: 'Lihat semua',
-                            svgIcon: 'assets/icons/ic_arrow_right.svg',
+                            threeText: '',
+                            // svgIcon: '',
                           ),
                           SizedBox(height: 16.h),
                           ListView.builder(
@@ -173,7 +173,129 @@ class _HomeScreenState extends State<HomeScreen> {
                                   title: pengumuman.judul,
                                   subTitle: pengumuman.tempat,
                                   dateText: DateFormat('dd-MM-yyyy').format(pengumuman.tanggal),
-                                  onTab: () {},
+                                  onTab: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(16.r),
+                                          ),
+                                          elevation: 0,
+                                          backgroundColor: Colors.transparent,
+                                          child: Container(
+                                            padding: EdgeInsets.all(16.w),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(16.r),
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        pengumuman.judul,
+                                                        style: TextStyle(
+                                                          fontSize: 18.sp,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      icon: Icon(Icons.close, size: 24.w),
+                                                      onPressed: () => Navigator.of(context).pop(),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(height: 8.h),
+                                                Divider(color: Colors.grey[300], thickness: 1),
+                                                SizedBox(height: 12.h),
+                                                Row(
+                                                  children: [
+                                                    Icon(Icons.location_on, size: 18.w, color: Colors.grey),
+                                                    SizedBox(width: 8.w),
+                                                    Text(
+                                                      pengumuman.tempat,
+                                                      style: TextStyle(
+                                                        fontSize: 14.sp,
+                                                        color: Colors.grey[700],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(height: 8.h),
+                                                Row(
+                                                  children: [
+                                                    Icon(Icons.calendar_today, size: 18.w, color: Colors.grey),
+                                                    SizedBox(width: 8.w),
+                                                    Text(
+                                                      DateFormat('dd MMMM yyyy').format(pengumuman.tanggal),
+                                                      style: TextStyle(
+                                                        fontSize: 14.sp,
+                                                        color: Colors.grey[700],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(height: 16.h),
+                                                Text(
+                                                  'Deskripsi',
+                                                  style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                SizedBox(height: 8.h),
+                                                Container(
+                                                  constraints: BoxConstraints(
+                                                    maxHeight: MediaQuery.of(context).size.height * 0.4,
+                                                  ),
+                                                  child: SingleChildScrollView(
+                                                    child: Text(
+                                                      pengumuman.deskripsi ?? 'Tidak ada deskripsi',
+                                                      style: TextStyle(
+                                                        fontSize: 14.sp,
+                                                        color: Colors.grey[800],
+                                                        height: 1.5,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(height: 16.h),
+                                                SizedBox(
+                                                  width: double.infinity,
+                                                  child: ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor: Colors.blue,
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(8.r),
+                                                      ),
+                                                      padding: EdgeInsets.symmetric(vertical: 12.h),
+                                                    ),
+                                                    onPressed: () => Navigator.of(context).pop(),
+                                                    child: Text(
+                                                      'Tutup',
+                                                      style: TextStyle(
+                                                        fontSize: 14.sp,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+
                                 ),
                               );
                             },

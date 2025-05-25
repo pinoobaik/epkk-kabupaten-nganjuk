@@ -137,8 +137,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                             'Berhasil',
                                             'Login berhasil! Selamat datang, ${authController.authResponse.value!.data!.fullName}',
                                             snackPosition: SnackPosition.TOP,
-                                            backgroundColor: Colors.green,
-                                            colorText: Colors.white,
+                                            backgroundColor: Colors.green.shade50,
+                                          	colorText: Colors.green.shade800,
                                           );
                                           Get.offAllNamed(Routes.MAIN, arguments: {
                                             // 'role': authController.authResponse.value!.data!.role
@@ -148,8 +148,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                             'Gagal Login',
                                             authController.errorMessage.value,
                                             snackPosition: SnackPosition.TOP,
-                                            backgroundColor : Colors.red,
-                                            colorText: Colors.white,
+                                            backgroundColor : Colors.red.shade50,
+                                            colorText: Colors.red.shade800,
                                           );
                                         }
                                       }

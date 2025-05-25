@@ -121,7 +121,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       FooterText(
                         firstText: 'Belum menerima kode?',
                         secondText: 'Kirim ulang',
-                        onTab: () {},
+                        onTab: () {
+                          authController.resendOtpForRegister(phoneNumber: phone_number);
+                        },
                       )
                     ],
                   ),
@@ -143,7 +145,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     final isFormValid = _formKey.currentState!.validate();
 
                     if (isFormValid) {
-                      if (_codeController.text == kode_otp) {
+                      if (_codeController.text == authController.generatedOtp) {
                         await authController.authRegisterController(
                           full_name: full_name,
                           phone_number: phone_number,

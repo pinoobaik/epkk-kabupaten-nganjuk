@@ -23,6 +23,7 @@ class CardPengumuman extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ZoomTapAnimation(
+      onTap: onTab,
       child: Container(
         decoration: BoxDecoration(
             color: TextColors.grey50,

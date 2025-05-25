@@ -150,7 +150,7 @@ class PickRoleScreen extends StatelessWidget {
                     // Kirim OTP via AuthRepository
                     await authController.sendOtpViaWhatsApp(
                       phone_number, // Format bebas (08xxx, +628xxx, dll)
-                      authController.randomNumber, //generate otp
+                      authController.generatedOtp, //generate otp
                     );
 
                     Get.toNamed(Routes.VERIFICATION, arguments: { 
@@ -163,7 +163,7 @@ class PickRoleScreen extends StatelessWidget {
                       'id_village': pickRoleController.selectedDesa.value,
                       'organization_name': pickRoleController.selectedRoleBidang.value,
                       'id_organization': pickRoleController.selectedRoleBidangID.value,
-                      'kode_otp': authController.randomNumber,});     
+                      'kode_otp': authController.generatedOtp,});     
                   } catch (e) {
                     Get.snackbar('Error', 'Gagal mengirim OTP: $e');
                   }

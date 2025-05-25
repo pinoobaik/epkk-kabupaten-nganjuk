@@ -51,14 +51,11 @@ class PenghayatanPengamalanController extends GetxController {
       // Handle response
       if (response.statusCode == 200) {
         reportData.value = response;
-        Get.snackbar('Sukses', 'Data berhasil disimpan');
       } else {
         errorMessage.value = response.message;
-        Get.snackbar('Error', errorMessage.value);
       }
     } catch (e) {
       errorMessage.value = e.toString();
-      Get.snackbar('Error', 'Terjadi kesalahan: ${e.toString()}');
     } finally {
       isLoading.value = false;
     }

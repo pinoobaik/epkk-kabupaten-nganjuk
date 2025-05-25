@@ -11,9 +11,9 @@ class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
   final double? elevation;
   final bool showBottomBorder; 
-  final int? currentStep; // <--- TAMBAH
+  final int? currentStep; 
   final int? totalSteps;
-  final bool centerTitle;  // <--- TAMBAH
+  final bool centerTitle;  
 
   const CustomeAppBar({
     Key? key,
@@ -24,18 +24,27 @@ class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.elevation,
     this.showBottomBorder = false,
     this.centerTitle = true,
-    this.currentStep, // <--- TAMBAH
-    this.totalSteps,  // <--- TAMBAH
+    this.currentStep, 
+    this.totalSteps,  
 
   }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize {
+    double height = kToolbarHeight;
+    if (currentStep != null && totalSteps != null) {
+      height += 24; // Tambahan untuk progress bar
+    }
+    if (showBottomBorder) {
+      height += 24; // Tambahan untuk border
+    }
+    return Size.fromHeight(height);
+  }
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.white,
       elevation: elevation,
       centerTitle: centerTitle,
      
@@ -69,34 +78,39 @@ class CustomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         ? PreferredSize(
             preferredSize: const Size.fromHeight(24),
             child: (currentStep != null && totalSteps != null)
-              ? Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(height: 0), // Jarak antara subtitle dan progress bar
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        children: List.generate(totalSteps!, (index) {
-                          bool isActive = index < currentStep!;
-                          return Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 3),
-                              height: 8,
-                              decoration: BoxDecoration(
-                                color: isActive ? Colors.blue : Colors.grey.shade300,
-                                borderRadius: BorderRadius.circular(4),
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: 0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
+                          children: List.generate(totalSteps!, (index) {
+                            bool isActive = index < currentStep!;
+                            return Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(horizontal: 3),
+                                height: 8,
+                                decoration: BoxDecoration(
+                                  color: isActive ? Colors.blue : Colors.grey.shade300,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
                               ),
-                            ),
-                          );
-                        }),
+                            );
+                          }),
+                        ),
+                      ),
+                    ],
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    child: Container(
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: Colors.blue, // Sama seperti progress bar aktif
+                        borderRadius: BorderRadius.circular(4),
                       ),
                     ),
-                  ],
-                )
-
-                : Container(
-                    height: 1.0,
-                    color: TextColors.grey700,
                   ),
           )
         : null,
@@ -124,15 +138,15 @@ class AppBarPrimary extends CustomeAppBar {
   VoidCallback? onTab2,
   Color? backgroundColor,
   double? elevation,
-  int? currentStep, // <--- TAMBAH
-  int? totalSteps,  // <--- TAMBAH
+  int? currentStep,
+  int? totalSteps, 
   }) : super(
         title: title,
         onBack: onBack,
         backgroundColor: backgroundColor,
         elevation: elevation,
-        currentStep: currentStep, // <--- TAMBAH
-        totalSteps: totalSteps,   // <--- TAMBAH
+        currentStep: currentStep, 
+        totalSteps: totalSteps,   
         showBottomBorder: false);
 
 }
@@ -144,8 +158,8 @@ class AppBarSecondary extends CustomeAppBar {
   VoidCallback? onTab2,
   Color? backgroundColor,
   double? elevation,
-  int? currentStep, // <--- TAMBAH
-  int? totalSteps,  // <--- TAMBAH
+  int? currentStep, 
+  int? totalSteps,  
   }) : super(
         title: title,
         centerTitle: false,
@@ -153,8 +167,8 @@ class AppBarSecondary extends CustomeAppBar {
         onTab2: onTab2,
         backgroundColor: backgroundColor,
         elevation: elevation,
-        currentStep: currentStep, // <--- TAMBAH
-        totalSteps: totalSteps,   // <--- TAMBAH
+        currentStep: currentStep, 
+        totalSteps: totalSteps,   
         showBottomBorder: true);
 
 }

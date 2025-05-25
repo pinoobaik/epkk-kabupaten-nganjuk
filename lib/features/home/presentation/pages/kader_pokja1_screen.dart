@@ -67,14 +67,32 @@ class _KaderPokja1ScreenState extends State<KaderPokja1Screen> {
 
   @override
   Widget build(BuildContext context) {
-    // final id_role = Get.arguments['role'] ?? 'Not Found';
-    // final id_organization = Get.arguments['role_bidang'] ?? 'Not Found';
     print('Role Upload Laporan: $name_role + $name_organization');
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarSecondary(
         title: 'Kader Pokja I',
+        onBack: () {
+          if (pkbnController.text.isEmpty && 
+              pkdrtController.text.isEmpty && 
+              polaController.text.isEmpty) {
+            Get.back();
+          } else {
+            // Tampilkan dialog konfirmasi
+            Get.defaultDialog(
+              title: "Batal Upload?",
+              middleText: "Data yang sudah diisi akan hilang",
+              textConfirm: "Ya",
+              textCancel: "Tidak",
+              onConfirm: () {
+                clearForm();
+                Get.back(); // Tutup dialog
+                Get.back(); // Kembali ke halaman sebelumnya
+              },
+            );
+          }
+        },
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -142,8 +160,8 @@ class _KaderPokja1ScreenState extends State<KaderPokja1Screen> {
                               'Berhasil',
                               'Laporan berhasil diupload!',
                               snackPosition: SnackPosition.TOP,
-                              backgroundColor: Colors.green,
-                              colorText: Colors.white,
+                              backgroundColor: Colors.green.shade50,
+                              colorText: Colors.green.shade800,
                             );
                             _formKey.currentState?.reset();
                             clearForm();
@@ -157,8 +175,8 @@ class _KaderPokja1ScreenState extends State<KaderPokja1Screen> {
                               'Error',
                               errorMessage,
                               snackPosition: SnackPosition.TOP,
-                              backgroundColor: Colors.red,
-                              colorText: Colors.white,
+                              backgroundColor: Colors.red.shade50,
+                              colorText: Colors.red.shade800,
                             );
                           }
                         } on SocketException {
@@ -166,24 +184,24 @@ class _KaderPokja1ScreenState extends State<KaderPokja1Screen> {
                             'Error',
                             'Tidak ada koneksi internet. Silakan periksa koneksi Anda.',
                             snackPosition: SnackPosition.TOP,
-                            backgroundColor: Colors.red,
-                            colorText: Colors.white,
+                            backgroundColor: Colors.red.shade50,
+                            colorText: Colors.red.shade800,
                           );
                         } on TimeoutException {
                           Get.snackbar(
                             'Error',
                             'Server tidak merespons, coba lagi nanti.',
                             snackPosition: SnackPosition.TOP,
-                            backgroundColor: Colors.red,
-                            colorText: Colors.white,
+                            backgroundColor: Colors.red.shade50,
+                            colorText: Colors.red.shade800,
                           );
                         } catch (e) {
                           Get.snackbar(
                             'Error',
                             'Terjadi kesalahan yang tidak diketahui.',
                             snackPosition: SnackPosition.TOP,
-                            backgroundColor: Colors.red,
-                            colorText: Colors.white,
+                            backgroundColor: Colors.red.shade50,
+                            colorText: Colors.red.shade800,
                           );
                         }
                       } else {
@@ -191,8 +209,8 @@ class _KaderPokja1ScreenState extends State<KaderPokja1Screen> {
                           'Error',
                           'Form tidak valid! Mohon periksa kembali input Anda.',
                           snackPosition: SnackPosition.TOP,
-                          backgroundColor: Colors.orange,
-                          colorText: Colors.white,
+                          backgroundColor: Colors.orange.shade50,
+                          colorText: Colors.orange.shade800,
                         );
                       }
                     },

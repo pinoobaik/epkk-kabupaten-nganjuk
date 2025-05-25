@@ -12,6 +12,7 @@ class PengumumanController extends GetxController {
   var pengumumanList = <Pengumuman>[].obs;
   var isLoading = false.obs;
   var errorMessage = ''.obs;
+  
 
   PengumumanController({required this.getPengumumanUsecase});
 

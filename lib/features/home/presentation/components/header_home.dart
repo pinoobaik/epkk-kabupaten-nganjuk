@@ -25,31 +25,35 @@ class HeaderHome extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TypographyStyles.bodySmallMedium(
-                    'Selamat datang,',
-                    color: TextColors.grey700,
-                  ),
-                  SizedBox(width: 4.w),
-                  TypographyStyles.bodySmallSemiBold(
-                    textUser,
-                    color: BrandColors.brandPrimary500,
-                    maxlines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-              SizedBox(height: 4.h),
-              TypographyStyles.captionReguler(
-                DateFormat('EEEE, dd-MM-yyyy', 'id_ID').format(DateTime.now()),
-                color: TextColors.grey500,
-              ),
-            ],
+          Expanded( 
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TypographyStyles.bodySmallMedium(
+                      'Selamat datang,',
+                      color: TextColors.grey700,
+                    ),
+                    SizedBox(width: 4.w),
+                    Expanded( 
+                      child: TypographyStyles.bodySmallSemiBold(
+                        textUser,
+                        color: BrandColors.brandPrimary500,
+                        maxlines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 4.h),
+                TypographyStyles.captionReguler(
+                  DateFormat('EEEE, dd-MM-yyyy', 'id_ID').format(DateTime.now()),
+                  color: TextColors.grey500,
+                ),
+              ],
+            ),
           ),
           Image.asset(
             'assets/images/logo_pkk.png',
@@ -57,7 +61,8 @@ class HeaderHome extends StatelessWidget {
             height: 44.h,
           )
         ],
-      ),
+      )
+
     );
   }
 }

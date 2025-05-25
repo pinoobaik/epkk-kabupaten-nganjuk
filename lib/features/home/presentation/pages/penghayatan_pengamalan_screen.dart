@@ -73,6 +73,31 @@ class _PenghayatanPengamalanScreenState extends State<PenghayatanPengamalanScree
       backgroundColor: Colors.white,
       appBar: AppBarSecondary(
         title: 'Penghayatan & Pengamalan Pancasila',
+        onBack: () {
+          if (jumlahkel1Controller.text.isEmpty && 
+              jumlahanggota1Controller.text.isEmpty &&
+              jumlahkel2Controller.text.isEmpty && 
+              jumlahanggota2Controller.text.isEmpty &&
+              jumlahkel3Controller.text.isEmpty && 
+              jumlahanggota3Controller.text.isEmpty &&
+              jumlahkel4Controller.text.isEmpty && 
+              jumlahanggota4Controller.text.isEmpty) {
+            Get.back();
+          } else {
+            // Tampilkan dialog konfirmasi
+            Get.defaultDialog(
+              title: "Batal Upload?",
+              middleText: "Data yang sudah diisi akan hilang",
+              textConfirm: "Ya",
+              textCancel: "Tidak",
+              onConfirm: () {
+                clearForm();
+                Get.back(); // Tutup dialog
+                Get.back(); // Kembali ke halaman sebelumnya
+              },
+            );
+          }
+        },
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -149,9 +174,12 @@ class _PenghayatanPengamalanScreenState extends State<PenghayatanPengamalanScree
                   validator: (value) => ValidatorForm.validateDefault(value),
                 ),
                 SizedBox(height: 24.h),
-                TypographyStyles.bodyCaptionMedium(
-                  'Lansia',
-                  color: TextColors.grey700,
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: TypographyStyles.bodyCaptionMedium(
+                    'Lansia',
+                    color: TextColors.grey700,
+                  ),
                 ),
                 SizedBox(height: 12.h),
                 InputFormField(
@@ -210,8 +238,8 @@ class _PenghayatanPengamalanScreenState extends State<PenghayatanPengamalanScree
                         'Berhasil',
                         'Laporan berhasil diupload!',
                         snackPosition: SnackPosition.TOP,
-                        backgroundColor: Colors.green,
-                        colorText: Colors.white,
+                        backgroundColor: Colors.green.shade50,
+                        colorText: Colors.green.shade800,
                       );
                       _formKey.currentState?.reset();
                       clearForm();
@@ -224,8 +252,8 @@ class _PenghayatanPengamalanScreenState extends State<PenghayatanPengamalanScree
                         'Error',
                         errorMessage,
                         snackPosition: SnackPosition.TOP,
-                        backgroundColor: Colors.red,
-                        colorText: Colors.white,
+                        backgroundColor: Colors.red.shade50,
+                        colorText: Colors.red.shade800,
                       );
                     } 
                   } on SocketException {
@@ -233,24 +261,24 @@ class _PenghayatanPengamalanScreenState extends State<PenghayatanPengamalanScree
                       'Error',
                       'Tidak ada koneksi internet. Silakan periksa koneksi Anda.',
                       snackPosition: SnackPosition.TOP,
-                      backgroundColor: Colors.red,
-                      colorText: Colors.white,
+                      backgroundColor: Colors.red.shade50,
+                      colorText: Colors.red.shade800,
                     );
                   } on TimeoutException {
                     Get.snackbar(
                       'Error',
                       'Server tidak merespons, coba lagi nanti.',
                       snackPosition: SnackPosition.TOP,
-                      backgroundColor: Colors.red,
-                      colorText: Colors.white,
+                      backgroundColor: Colors.red.shade50,
+                      colorText: Colors.red.shade800,
                     );
                   } catch (e) {
                     Get.snackbar(
                       'Error',
                       'Terjadi kesalahan yang tidak diketahui.',
                       snackPosition: SnackPosition.TOP,
-                      backgroundColor: Colors.red,
-                      colorText: Colors.white,
+                      backgroundColor: Colors.red.shade50,
+                      colorText: Colors.red.shade800,
                     );
                   }
                 } else {
@@ -258,8 +286,8 @@ class _PenghayatanPengamalanScreenState extends State<PenghayatanPengamalanScree
                     'Error',
                     'Form tidak valid! Mohon periksa kembali input Anda.',
                     snackPosition: SnackPosition.TOP,
-                    backgroundColor: Colors.orange,
-                    colorText: Colors.white,
+                    backgroundColor: Colors.orange.shade50,
+                    colorText: Colors.orange.shade800,
                   );   
                 }
               }, 

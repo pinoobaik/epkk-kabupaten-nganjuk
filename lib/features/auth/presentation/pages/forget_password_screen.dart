@@ -114,7 +114,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
               // Panggil generate dari controller
               authController.generateRandomNumber();
-              final kodeOtp = authController.randomNumber;
+              final kodeOtp = authController.generatedOtp;
 
               try {
                 await authController.sendOtpViaWhatsApp(phoneNumber, kodeOtp);

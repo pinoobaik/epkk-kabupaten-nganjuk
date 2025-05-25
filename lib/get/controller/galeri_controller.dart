@@ -13,6 +13,7 @@ class GaleriController extends GetxController {
 
   GaleriController({required this.submitGaleriUsecase});
 
+  // GaleriController
   Future<void> submitDataGaleri({
     required String idUser,
     required String deskripsi,
@@ -24,12 +25,10 @@ class GaleriController extends GetxController {
     String? status,
   }) async {
     try {
-      // Reset state dan mulai loading
       isLoading(true);
       errorMessage('');
       galeriData(null);
 
-      // Eksekusi usecase
       final response = await submitGaleriUsecase.execute(
         idUser: idUser,
         deskripsi: deskripsi,
@@ -41,34 +40,16 @@ class GaleriController extends GetxController {
         status: status,
       );
 
-      // Handle response
       if (response.statusCode == 200) {
         galeriData(response);
-        Get.snackbar(
-          'Sukses',
-          'Data galeri berhasil disimpan',
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 3),
-        );
       } else {
         errorMessage(response.message);
-        Get.snackbar(
-          'Gagal',
-          response.message,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 3),
-        );
       }
     } catch (e) {
-      errorMessage(e.toString());
-      Get.snackbar(
-        'Error',
-        'Terjadi kesalahan: ${e.toString().replaceAll('Exception: ', '')}',
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 3),
-      );
+      errorMessage('Terjadi kesalahan: ${e.toString().replaceAll('Exception: ', '')}');
     } finally {
       isLoading(false);
     }
   }
+
 }
